@@ -1,4 +1,5 @@
-from flask import Flask, render_template, request, flash, redirect
+from flask import Flask, render_template, request, flash, redirect, url_for, session
+from werkzeug.security import check_password_hash, generate_password_hash
 import psycopg2
 import psycopg2.extras
 
@@ -16,9 +17,26 @@ conn = psycopg2.connect(host=DB_HOST, dbname=DB_NAME, user=DB_USER, password=DB_
 def index():
     return render_template("index.html")
 
-
 @app.route("/login", methods=["GET", "POST"])
 def login():
+    db = conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
+    if request.method == 'POST':
+        username = request.form['username']
+        password = request.form['password']
+        role = request.form['role']
+        role = 'admin' if role == 'admin' else 'customer'
+        error = None
+        user = db.execute('SELECT * FROM ? WHERE username = ?', (role, username,)).fetchone()
+        if user is None:
+            error = 'Incorrect Username'
+        elif not check_password_hash(user['password'], password):
+            error = 'Incorrect Password'
+        if error is None:
+            session.clear()
+            session['role'] = role
+            session['user_id'] = user['id']
+            return redirect(url_for('index'))
+        flash(error)
     return render_template("login.html")
 
 
@@ -50,7 +68,6 @@ def home():
 
     if username in customer_usernames or email in customer_emails:
         return redirect("/")
-
 
     cars = db.fetchall()
     db.execute(
