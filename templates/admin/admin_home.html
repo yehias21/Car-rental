@@ -1,0 +1,27 @@
+{% extends "layout.html" %}
+{%  block body %}
+<section  style="background-image: url('/static/carbackground.jpg');
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;">
+    <nav class="navbar navbar-expand-lg navbar-light fixed-top py-3" id="mainNav">
+            <div class="container px-4 px-lg-5">
+                <button class="navbar-toggler navbar-toggler-right" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+                <div class="collapse navbar-collapse" id="navbarResponsive">
+                    <ul class="navbar-nav ms-auto my-2 my-lg-0">
+                        <li class="nav-item"><a class="nav-link" href="/admin/logout">Log Out</a></li>
+                    </ul>
+                </div>
+            </div>
+    </nav>
+    <div class="col-lg-8 align-self-baseline">
+        <a class="btn btn-primary btn-xl" href="/admin/register_car">Register a new car</a>
+    </div>
+    <div class="col-lg-8 align-self-baseline">
+        <a class="btn btn-primary btn-xl" href="/admin/register_car">Reports</a>
+    </div>
+    <div class="col-lg-8 align-self-baseline">
+        <a class="btn btn-primary btn-xl" href="/admin/register_car">Search A Car</a>
+    </div>
+</section>
+{% endblock %}

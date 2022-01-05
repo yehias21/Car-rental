@@ -12,23 +12,22 @@ db = sql.db
 # @bp.before_app_request
 # def load_logged_in_user():
 #     username = session.get('username')
-#     print(username)
 #     if username is None:
 #         g.user = None
 #     else:
 #         db.execute(sql.login_query(session['role']), (username,))
 #         g.user = db.fetchone
-#
-#
-# def login_required(view):
-#     @functools.wraps(view)
-#     def wrapped_view(**kwargs):
-#         if g.user is None:
-#             return redirect(url_for('auth.login'))
-#
-#         return view(**kwargs)
-#
-#     return wrapped_view
+
+
+def login_required(view):
+    @functools.wraps(view)
+    def wrapped_view(**kwargs):
+        if g.user is None:
+            return redirect(url_for('auth.login'))
+
+        return view(**kwargs)
+
+    return wrapped_view
 
 
 @bp.route("/login", methods=["GET", "POST"])
@@ -80,7 +79,7 @@ def register():
 @bp.route("/home", methods=["GET", "POST"])
 def home():
     if session['role'] == 'admin':
-        return redirect(url_for('admin.register_car'))
+        return redirect(url_for('admin.home'))
     elif session['role'] == 'customer':
         return redirect(url_for('customer.home'))
     return render_template("home.html")
