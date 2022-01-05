@@ -3,12 +3,12 @@ from auth import login_required
 
 import carSQL as sql
 
-bp = Blueprint('customer', __name__)
+bp = Blueprint('customer', __name__, 'customer.py')
 conn = sql.conn
 db = sql.db
 
 
-@bp.route('/')
+@bp.route('/customer')
 def index():
     # TODO
     # Show sth for customer

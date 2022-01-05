@@ -11,11 +11,12 @@ db = sql.db
 
 @bp.before_app_request
 def load_logged_in_user():
-    user_id = session.get('user_id')
-    if user_id is None:
+    username = session.get('username')
+    print(username)
+    if username is None:
         g.user = None
     else:
-        db.execute(sql.login_query(session['role']), (user_id,))
+        db.execute(sql.login_query(session['role']), (username,))
         g.user = db.fetchone
 
 
@@ -47,7 +48,7 @@ def login():
         if error is None:
             session.clear()
             session['role'] = role
-            session['user_id'] = user['id']
+            session['username'] = user['username']
             return redirect(url_for('auth.home'))
         flash(error)
     return render_template("auth/login.html")
@@ -79,7 +80,7 @@ def register():
 @bp.route("/home", methods=["GET", "POST"])
 def home():
     if session['role'] == 'admin':
-        return redirect(url_for('admin.home'))
+        return redirect(url_for('admin.register_car'))
     elif session['role'] == 'customer':
         return redirect(url_for('customer.home'))
     return render_template("home.html")

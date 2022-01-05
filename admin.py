@@ -1,5 +1,6 @@
 import datetime
 
+import psycopg2
 from flask import (Blueprint, flash, redirect, render_template, request, url_for, session)
 from auth import login_required
 import carSQL as sql
@@ -23,10 +24,10 @@ def register_car():
         image = content['image']
         error = None
         try:
-            db.insert('INSERT INTO car (plateid,modelyr,brand,model,color) values (%s,%s,%s,%s,%s)',
-                      (plateID, year, brand, model, color))
+            db.execute(sql.car_register, (plateID, year, brand, model, color))
+            db.execute(sql.car_image_register, (plateID, image))
             conn.commit()
-        except db.IntegrityError:
+        except psycopg2.IntegrityError:
             error = f"Car {plateID} is already registered"
             flash(error)
         else:

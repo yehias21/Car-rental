@@ -16,3 +16,6 @@ def login_query(tablename=None):
 
 
 customer_register = "INSERT INTO customer (username, password, fname, lname, email, country, city, address) VALUES (%s,%s,%s,%s,%s,%s,%s,%s)"
+admin_register = "INSERT INTO admin (username, password) VALUES (%s,%s)"
+car_register = "INSERT INTO car (plateid,modelyr,brand,model,color) VALUES (%s,%s,%s,%s,%s)"
+car_image_register = "INSERT INTO car_image (plateid, image) values (%s,%s)"
