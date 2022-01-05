@@ -12,17 +12,22 @@
                             <div class="card-body p-5">
                                 <h2 class="text-uppercase text-center mb-5">Login To Your Account</h2>
 
-                                <form action="/"  method="post">
+                                <form method="post">
 
                                     <div class="form-outline mb-4">
-                                        <label class="form-label" for="form3Example3cg">Your Email</label>
-                                        <input type="email" id="form3Example3cg" placeholder="xxx@example.com" class="form-control form-control-lg" name="email" required>
+                                        <label class="form-label" for="form3Example1cg">Username</label>
+                                        <input type="text" id="form3Example1cg" placeholder="Your username here." class="form-control form-control-lg" name="username" required>
                                     </div>
 
                                     <div class="form-outline mb-4">
                                         <label class="form-label" for="form3Example4cg">Password</label>
-                                        <input type="password" id="form3Example4cg" placeholder="********" class="form-control form-control-lg" name="pass" required>
+                                        <input type="password" id="form3Example4cg" placeholder="********" class="form-control form-control-lg" name="password" required>
                                     </div>
+
+                                    <input type="radio" id="admin" name="role" value="admin" required>
+                                    <label for="admin">Admin</label><br>
+                                    <input type="radio" id="customer" name="role" value="customer" required>
+                                    <label for="customer">Customer</label><br>
 
                                     <div class="d-flex justify-content-center">
                                         <button type="submit" class="btn btn-success btn-block btn-lg gradient-custom-4 text-body" name="login">Login</button>
