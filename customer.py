@@ -1,5 +1,5 @@
 from flask import (Blueprint, flash, redirect, render_template, request, url_for, session)
-from auth import login_required
+# from auth import login_required
 
 import carSQL as sql
 

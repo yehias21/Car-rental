@@ -17,5 +17,10 @@ def login_query(tablename=None):
 
 customer_register = "INSERT INTO customer (username, password, fname, lname, email, country, city, address) VALUES (%s,%s,%s,%s,%s,%s,%s,%s)"
 admin_register = "INSERT INTO admin (username, password) VALUES (%s,%s)"
-car_register = "INSERT INTO car (plateid,modelyr,brand,model,color) VALUES (%s,%s,%s,%s,%s)"
+car_register = "INSERT INTO car (plateid,modelyr,brand,model,color,rate) VALUES (%s,%s,%s,%s,%s,%s)"
 car_image_register = "INSERT INTO car_image (plateid, image) values (%s,%s)"
+car_search = "SELECT car.* , car_image.image FROM car natural join car_image WHERE " \
+             "plateid = %s or modelyr = %s or brand = %s or model=%s or color=%s or active = %s or rate = %s"
+
+car_search_plate = "SELECT car.* , car_image.image FROM car natural join car_image WHERE plateid = %s "
+update_car = "UPDATE car SET (active,rate) = (%s,%s) WHERE plateid = %s"
