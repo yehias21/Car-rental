@@ -24,3 +24,16 @@ car_search = "SELECT car.* , car_image.image FROM car natural join car_image WHE
 
 car_search_plate = "SELECT car.* , car_image.image FROM car natural join car_image WHERE plateid = %s "
 update_car = "UPDATE car SET (active,rate) = (%s,%s) WHERE plateid = %s"
+
+# reports:
+all_reservations = "SELECT reserve_date,pickup_date,return_date,concat(fname,lname) customer_name,plateid,bill,paid " \
+               "FROM (reservation join customer c on c.id = reservation.custid) as rc join car on rc.carid = " \
+               "car.plateid " \
+               "where reserve_date between %s and %s "
+
+car_reservations_date = "select reserve_date,pickup_date,return_date,bill,paid from reservation " \
+                        "where carid = %s and (reserve_date between %s and %s)"
+
+customer_reservations_date = "select reserve_date ,pickup_date , return_date , bill ,paid , carid , concat(brand,model) car_model " \
+                             "from reservation join car c on c.plateid = reservation.carid where custid = %s"
+
