@@ -48,3 +48,7 @@ customer_reservations = "select reserve_date ,pickup_date , return_date , bill ,
 customer_payments = "select carid,reserve_date,amount,date " \
                     "from (payments join customer c on c.id = payments.custid) as cp " \
                     "join reservation r on cp.rid = r.rid where custid = %s"
+
+car_status = "with out_of_service as(select plateid from status where %s::date between out_start and out_end) " \
+             "select plateid,'active' as status from car where car.plateid not in (select * from out_of_service) " \
+             "union (select plateid,'false' from out_of_service)"

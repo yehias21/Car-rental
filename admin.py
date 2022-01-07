@@ -87,7 +87,7 @@ def car_reservations():
     start = content['start_date']
     end = content['end_date']
     car = content['car']
-    db.execute(sql.car_search_plate, car)
+    db.execute(sql.car_search_plate, (car,))
     car = db.fetchone
     db.execute(sql.all_reservations, (car, start, end))
     results = db.fetchall
@@ -98,9 +98,9 @@ def car_reservations():
 def customer_reservations():
     content = request.json
     customer = content['customer']
-    db.execute(sql.search_customer, customer)
+    db.execute(sql.search_customer, (customer,))
     customer = db.fetchone
-    db.execute(sql.customer_reservations, customer)
+    db.execute(sql.customer_reservations, (customer,))
     results = db.fetchall
     return jsonify(customer=customer, results=results, size=len(results))
 
@@ -109,11 +109,21 @@ def customer_reservations():
 def customer_payments():
     content = request.json
     customer = content['customer']
-    db.execute(sql.search_customer, customer)
+    db.execute(sql.search_customer, (customer,))
     customer = db.fetchone
-    db.execute(sql.customer_payments, customer)
+    db.execute(sql.customer_payments, (customer,))
     results = db.fetchall
     return jsonify(customer=customer, results=results, size=len(results))
+
+
+@bp.route('/reports/status', method=['POST'])
+def cars_status():
+    content = request.json
+    date = content['date']
+    db.execute(sql.car_status, date)
+    results = db.fetchall
+    results = [(r['plateid'], r['status']) for r in results]
+    return jsonify(results=results, size=len(results))
 
 
 @bp.route('/admin/logout')
