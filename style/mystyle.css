@@ -6,9 +6,8 @@ COLORS - SAND: #CCC5B9, DARK BROWN: #252422, BLUE: #577590
 @import url('https://fonts.googleapis.com/css?family=Roboto+Slab&display=swap');
 
 * {
-  padding: 0;
-  margin: 0;
-  box-sizing: border-box;
+    padding: 0;
+    box-sizing: border-box;
 }
 
 html {

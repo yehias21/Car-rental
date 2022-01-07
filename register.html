@@ -1,0 +1,141 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Register</title>
+    <link rel="stylesheet" type="text/css" href="source/bootstrap-3.3.6-dist/css/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="source/font-awesome-4.5.0/css/font-awesome.css">
+    <link rel="stylesheet" type="text/css" href="style/mystyle.css">
+</head>
+
+<body>
+    <!-- Header -->
+    <div class="allcontain">
+        <div class="header" style="padding: 2px">
+            <ul class="socialicon">
+                <li><a href="index.html" class="logreg">CLASSICAR</a></li>
+            </ul>
+            
+        </div>
+        <!-- Navbar Up -->
+        <nav class="topnavbar navbar-default topnav">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed toggle-costume" data-toggle="collapse"
+                        data-target="#upmenu" aria-expanded="false">
+                        <span class="sr-only"> Toggle navigaion</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <!-- <a class="navbar-brand logo" href="#"><img src="image/logo1.png" alt="logo"></a> -->
+                </div>
+            </div>
+        </nav>
+    </div>
+    <!--_______________________________________ Search__________________________________ -->
+        <div class="mask d-flex align-items-center h-100">
+            <div class="card-body p-5" style="max-width: 400px; margin: 50px 450px">
+                                <h2 class="text-uppercase text-center mb-5" style="font-family: bebas">Register</h2>
+
+                                <form onsubmit="return verifyPassword()" method="post">
+
+
+                                    <div class="form-outline mb-4">
+                                        <label class="form-label" for="form3Example1cg">First Name</label>
+                                        <input type="text" id="form3Example1cg" placeholder="Your first name here."
+                                            class="form-control form-control-lg" name="firstname" required>
+                                    </div>
+
+                                    <div class="form-outline mb-4">
+                                        <label class="form-label" for="form3Example1cg">Last Name</label>
+                                        <input type="text" id="form3Example1cg" placeholder="Your last name here."
+                                            class="form-control form-control-lg" name="lastname" required>
+                                    </div>
+
+                                    <div class="form-outline mb-4">
+                                        <label class="form-label" for="form3Example1cg">Username</label>
+                                        <input type="text" id="form3Example1cg" placeholder="Your username here."
+                                            class="form-control form-control-lg" name="username" required>
+                                    </div>
+
+                                    <div class="form-outline mb-4">
+                                        <label class="form-label" for="form3Example3cg">Email</label>
+                                        <input type="email" id="form3Example3cg" placeholder="xxx@example.com"
+                                            class="form-control form-control-lg" name="email" required>
+                                    </div>
+
+                                    <div class="form-outline mb-4">
+                                        <label class="form-label" for="form3Example4cg">Password</label>
+                                        <input type="password" id="form3Example4cg" placeholder="********"
+                                            class="form-control form-control-lg" name="password" required>
+                                    </div>
+
+                                    <div class="form-outline mb-4">
+                                        <label class="form-label" for="form3Example4cdg">Confirm your password</label>
+                                        <input type="password" id="form3Example4cdg" placeholder="********"
+                                            class="form-control form-control-lg" name="pass_chk" required>
+                                    </div>
+
+                                    <div class="form-outline mb-4">
+                                        <label class="form-label" for="form3Example1cg">Country</label>
+                                        <input type="text" id="form3Example1cg" placeholder="Egypt"
+                                            class="form-control form-control-lg" name="country" required>
+                                    </div>
+
+                                    <div class="form-outline mb-4">
+                                        <label class="form-label" for="form3Example1cg">City</label>
+                                        <input type="text" id="form3Example1cg" placeholder="Cairo"
+                                            class="form-control form-control-lg" name="city" required>
+                                    </div>
+
+                                    <div class="form-outline mb-4">
+                                        <label class="form-label" for="form3Example1cg">Address</label>
+                                        <input type="text" id="form3Example1cg" placeholder="Your address here."
+                                            class="form-control form-control-lg" name="address" required>
+                                    </div>
+
+                                    <div class="d-flex justify-content-center">
+                                        <button type="submit"
+                                            class="btn btn-success btn-block btn-lg gradient-custom-4 text-body"
+                                            name="register" style="background-color: #F8C72D">Register</button>
+                                    </div>
+
+                                    <p class="text-center text-muted mt-5 mb-0">Have already an account? <a
+                                            href="login.html" class="fw-bold text-body"><u>Login here</u></a></p>
+
+                                </form>
+
+                            </div>
+        </div>
+    </section>
+    <div class="allcontain">
+        <div id="carousel-up" class="carousel slide" data-ride="carousel"> </div>
+    </div>
+
+    <!-- ______________________________________________________Bottom Menu ______________________________-->
+    <div class="bottommenu">
+
+        <p>"<em style="color:#C59E47 ">Quality</em> never goes out of style" <br>
+        </p>
+        <img src="image/line.png" alt="line"> <br>
+        <div class="footer"> </div>
+    </div>
+    <script>
+        function verifyPassword() {
+            var pass = document.getElementById("form3Example4cg").value;
+            var confirm_pass = document.getElementById("form3Example4cdg").value;
+            var validation = pass.localeCompare(confirm_pass);
+            if (validation === 0) {
+                return true;
+            } else {
+                alert("Passwords Do Not Match");
+                return false;
+            }
+
+        }
+    </script>
+</body>
+
+</html>
