@@ -1,0 +1,199 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Car Rental</title>
+	<link rel="stylesheet" type="text/css" href="source/bootstrap-3.3.6-dist/css/bootstrap.css">
+	<link rel="stylesheet" type="text/css" href="source/font-awesome-4.5.0/css/font-awesome.css">
+	<link rel="stylesheet" type="text/css" href="style/mystyle.css">
+</head>
+<body>
+<!-- Header -->
+<div class="allcontain">
+	<div class="header" style="padding: 2px">
+			<ul class="socialicon">
+				<li><a href="#" class="logreg">CLASSICAR</a></li>
+			</ul>
+			<ul class="logreg">
+				<li><a href="#">My Reservations </a> </li>
+				<li><a href="#"><span class="register">Logout</span></a></li>
+			</ul>
+	</div>
+	<!-- Navbar Up -->
+	<nav class="topnavbar navbar-default topnav">
+		<div class="container">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed toggle-costume" data-toggle="collapse" data-target="#upmenu" aria-expanded="false">
+					<span class="sr-only"> Toggle navigaion</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+				<!-- <a class="navbar-brand logo" href="#"><img src="image/logo1.png" alt="logo"></a> -->
+			</div>	 
+		</div>
+	</nav>
+</div>
+<!--_______________________________________ Search__________________________________ -->
+<div class="allcontain">
+	<div id="carousel-up" class="carousel slide" data-ride="carousel">
+		<nav class="navbar navbar-default midle-nav">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed textcostume" data-toggle="collapse" data-target="#navbarmidle" aria-expanded="false">
+						<h1>SEARCH CARS</h1>
+					<span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+			</div>
+			<div class="collapse navbar-collapse" id="navbarmidle">
+				<div class="searchtxt">
+					<h1 style="color: black">SEARCH CARS</h1>
+				</div>
+				<form class="navbar-form navbar-left searchformmargin" onSubmit="return searchCars(Brand,Model)">
+					<div class="form-group">
+						<input type="text" class="form-control searchform" name="Brand" placeholder="Brand">
+						<input type="text" class="form-control searchform" name="Model" placeholder="Model">
+						<input type="text" class="form-control searchform" placeholder="Color">
+						<label style="color: #FFF" >From:</label>
+						<input type="date" class="form-control searchform" placeholder="Pickup Date">
+						<label style="color: #FFF" >To:</label>
+						<input type="date" class="form-control searchform" placeholder="Return Date">
+					</div>
+					<button class="searchbutton" type="submit" style="margin: 10px;"><span class="glyphicon glyphicon-search "></span></button>
+				</form>
+			</div>
+		</nav>
+	</div>
+</div>
+<!-- ____________________Featured Section ______________________________--> 
+
+	<div class="wrapper">
+		<div class="card">
+		  <div class="product-left">
+			<div class="headerp">
+			  <h1>Porshe 911</h1> <!--Brand and Model-->
+			</div>
+			<div class="product-main">
+			  <div class="focus"> </div>
+			</div>
+			<div class="product-details">
+			  <div class="product-total">
+				<h3>Price/Day: 13 $</h3> <!--Price-->
+				<h3>Color: Cyan</h3>  <!--Brand and Model-->
+				  
+			  </div>
+			</div>
+			<div class="product-btns">
+			  <a href="#" class="product-add">RENT CAR</a>
+			</div>
+		  </div>
+		  <div class="product-right">
+			<img src="image/featurporch.jpg" alt="">
+		  </div>
+		</div>
+
+		<div class="card">
+			<div class="product-left">
+			  <div class="headerp">
+				<h1>Toro SLing Chair</h1>
+				<!-- <h2>Sit down in modern</h2> -->
+			  </div>
+			  <!--DESCRIPITON / DETAILS-->
+			  <div class="product-main">
+				<div class="focus">
+				</div>
+			  </div>
+			  <!--CHOOSE PRODUCT DETAILS-->
+			  <div class="product-details">
+				
+				<!--PRODUCT TOTAL-->
+				<div class="product-total">
+				  <h3>Total Price</h3>
+				  <p>$1399.00</p>
+				</div>
+			  </div>
+			  <!-- ADD TO CART BUTTON -->
+			  <div class="product-btns">
+				<a href="#" class="product-add">Add To Cart</a>
+			  </div>
+			</div>
+			<div class="product-right">
+			  <img src="image/featurporch.jpg" alt="">
+			</div>
+		  </div>
+
+		  <div class="card">
+			<div class="product-left">
+			  <div class="headerp">
+				<h1>Toro SLing Chair</h1>
+				<!-- <h2>Sit down in modern</h2> -->
+			  </div>
+			  <!--DESCRIPITON / DETAILS-->
+			  <div class="product-main">
+				<div class="focus">
+				</div>
+			  </div>
+			  <!--CHOOSE PRODUCT DETAILS-->
+			  <div class="product-details">
+				
+				<!--PRODUCT TOTAL-->
+				<div class="product-total">
+				  <h3>Total Price</h3>
+				  <p>$1399.00</p>
+				</div>
+			  </div>
+			  <!-- ADD TO CART BUTTON -->
+			  <div class="product-btns">
+				<a href="#" class="product-add">Add To Cart</a>
+			  </div>
+			</div>
+			<div class="product-right">
+			  <img src="image/featurporch.jpg" alt="">
+			</div>
+		  </div>
+
+		  <div class="card">
+			<div class="product-left">
+			  <div class="headerp">
+				<h1>Toro SLing Chair</h1>
+				<!-- <h2>Sit down in modern</h2> -->
+			  </div>
+			  <!--DESCRIPITON / DETAILS-->
+			  <div class="product-main">
+				<div class="focus">
+				</div>
+			  </div>
+			  <!--CHOOSE PRODUCT DETAILS-->
+			  <div class="product-details">
+				
+				<!--PRODUCT TOTAL-->
+				<div class="product-total">
+				  <h3>Total Price</h3>
+				  <p>$1399.00</p>
+				</div>
+			  </div>
+			  <!-- ADD TO CART BUTTON -->
+			  <div class="product-btns">
+				<a href="#" class="product-add">Add To Cart</a>
+			  </div>
+			</div>
+			<div class="product-right">
+			  <img src="image/featurporch.jpg" alt="">
+			</div>
+		  </div>
+
+	  </div>
+
+	<!-- ______________________________________________________Bottom Menu ______________________________-->
+	<div class="bottommenu">
+		
+		<p>"<em style="color:#C59E47 ">Quality</em> never goes out of style" <br>
+			</p>
+		 <img src="image/line.png" alt="line"> <br>
+			<div class="footer"> </div>
+	</div>
+<script src="customer.js" type="text/javascript"></script>
+</body>
+</html>

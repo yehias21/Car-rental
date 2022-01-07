@@ -71,9 +71,8 @@ body {
 
 .headerp h1 {
   text-transform: uppercase;
-  margin-top: 2rem;
-   font-size: 35px;
-	font-family: bebas
+  margin: 2rem 0;
+   font-size: 18px;
 }
 
 /* Price */
@@ -289,21 +288,18 @@ padding-left: 5%;
   }
  
 
- .buttonito{
-    background: none;
-    background-color: none;
-    border: 1px solid #FFFFFF;
-    font-family: 'BebasNeue Regular';
-    margin-left: 10px;
-    font-size: 30px;
-    color: #FFFFFF;
-    padding-left: 19px;
-    padding-right: 19px;
-    padding-top: -2px;
-    padding-bottom: -2px;
-    margin-top: 20px;
-    margin-bottom: 20px;
-    margin-right: 10px;
+ #navbarontop>button{
+ 	background: none;
+ 	background-color: none;
+ 	border: 2px solid #C59E47;
+ 	font-family: 'BebasNeue Regular';
+ 	margin-left: 60px;
+  	font-size: 16.99px;
+  	color: #313943;
+  	padding-left: 19px;
+  	padding-right: 19px;
+  	padding-top: -2px;
+  	padding-bottom:-2px;
  }
  #navbarontop>button:hover{
  	background-color: #C59E47;
@@ -506,7 +502,7 @@ font-size: 10pt;
 	padding-left: 40px;
 }
 .midle-nav{
-	background: rgba(248,199,45);
+	background: rgba(248,199,45,.8);
  	border: 0px;
  	position: relative;
  	bottom: 0px;
@@ -515,9 +511,9 @@ font-size: 10pt;
  	border-radius: 0px;
 }
 #navbarmidle{
-    padding-left: 3%;
-    padding-bottom: 0px;
-    width: 100%;
+		padding-left: 3%;
+		padding-bottom: 26px;
+		width: 100%;
 }
 .searchtxt{
 	max-width: 1349px;
@@ -526,10 +522,10 @@ font-size: 10pt;
 	text-align: center;
 	font-family: 'BebasNeue Regular';
 	font-size: 22pt;
-	color: #000000;
+	color: #fff;
 	margin-top: 14px;
-/*	margin-bottom: 14px;*/
-/*	padding-left: 15px;*/
+	margin-bottom: 14px;
+	padding-left: 15px;
 	max-width: 1349px;
 
 }
