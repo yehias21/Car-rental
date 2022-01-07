@@ -18,19 +18,6 @@ def home():
 @bp.route('/customer_search', methods=["GET", "POST"])
 def search_car():
     if request.method == "POST":
-    #     content = request.form
-    #     brand = content["brand"]
-    #     model = content["model"]
-    #     model_year = content["model_year"]
-    #     model_year = model_year if model_year != '' else '1970'
-    #     model_year = datetime.date(int(model_year), 1, 1)
-    #     color = content["color"]
-    #     plateID = ''
-    #     active = True
-    #     rate = ''
-    #     db.execute(sql.car_search_customer, (plateID, model_year, brand, model, color, rate, active))
-    #     cars = db.fetchall()
-    #     return render_template("cars.html", cars=cars)
         content = request.json
         where = " WHERE "
         if (request.form['brand']): where += f" brand={request.form['brand']} and"
@@ -42,7 +29,6 @@ def search_car():
         query = "SELECT  brand,model,rate,extract(year from car.modelyr),encode(car_image.image,'hex') img " \
                 "FROM car natural join car_image left join reservation on car.plateid=reservation.carid" \
                 + where + " active=true;"
-        print(query)
         db.execute(query)
         cars = db.fetchall()
         return render_template("cars.html", cars=cars)

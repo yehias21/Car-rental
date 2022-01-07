@@ -71,7 +71,7 @@ def view_car(plateid):
     return render_template('admin/car', car=car)
 
 
-@bp.route('/reports/reservations', method=["POST"])
+@bp.route('/reports/reservations', methods=["POST"])
 def reservations():
     content = request.json
     start = content['start_date']
@@ -81,7 +81,7 @@ def reservations():
     return jsonify(results=results, size=len(results))
 
 
-@bp.route('/reports/car_reservations', method=["POST"])
+@bp.route('/reports/car_reservations', methods=["POST"])
 def car_reservations():
     content = request.json
     start = content['start_date']
@@ -94,7 +94,7 @@ def car_reservations():
     return jsonify(car=car, results=results, size=len(results))
 
 
-@bp.route('/reports/customer_reservations', method=["POST"])
+@bp.route('/reports/customer_reservations', methods=["POST"])
 def customer_reservations():
     content = request.json
     customer = content['customer']
@@ -105,7 +105,7 @@ def customer_reservations():
     return jsonify(customer=customer, results=results, size=len(results))
 
 
-@bp.route('/reports/payments', method=["POST"])
+@bp.route('/reports/payments', methods=["POST"])
 def customer_payments():
     content = request.json
     customer = content['customer']
@@ -116,7 +116,7 @@ def customer_payments():
     return jsonify(customer=customer, results=results, size=len(results))
 
 
-@bp.route('/reports/status', method=['POST'])
+@bp.route('/reports/status', methods=['POST'])
 def cars_status():
     content = request.json
     date = content['date']
