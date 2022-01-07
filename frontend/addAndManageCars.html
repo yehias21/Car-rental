@@ -1,0 +1,145 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Manage Cars</title>
+	<link rel="stylesheet" type="text/css" href="source/bootstrap-3.3.6-dist/css/bootstrap.css">
+	<link rel="stylesheet" type="text/css" href="source/font-awesome-4.5.0/css/font-awesome.css">
+	<link rel="stylesheet" type="text/css" href="style/mystyle.css">
+</head>
+<body>
+<!-- Header -->
+<div class="allcontain">
+	<div class="header" style="padding: 2px">
+			<ul class="socialicon">
+				<li><a href="#" class="logreg">CLASSICAR</a></li>
+			</ul>
+			<ul class="logreg">
+				<li><a href="Reports.html">Reports </a> </li>
+				<li><a href="#"><span class="register">Logout</span></a></li>
+			</ul>
+	</div>
+	<!-- Navbar Up -->
+	<nav class="topnavbar navbar-default topnav">
+		<div class="container">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed toggle-costume" data-toggle="collapse" data-target="#upmenu" aria-expanded="false">
+					<span class="sr-only"> Toggle navigaion</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+				<!-- <a class="navbar-brand logo" href="#"><img src="image/logo1.png" alt="logo"></a> -->
+			</div>	 
+		</div>
+	</nav>
+</div>
+<!--_______________________________________ Search__________________________________ -->
+<div class="allcontain">
+	<div id="carousel-up" class="carousel slide" data-ride="carousel">
+		<h2 align="center" style="font-family: bebas">Add And Manage Cars&nbsp;</h2>
+		<nav class="navbar navbar-default midle-nav">
+<div class="navbar-header">
+		  <button type="button" class="navbar-toggle collapsed textcostume" data-toggle="collapse" data-target="#navbarmidle" aria-expanded="false">
+						<h1>SEARCH TEXT</h1>
+					<span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+			</div>
+<div class="collapse navbar-collapse" id="navbarmidle">
+		  <div class="searchtxt"> </div>
+				<form class="navbar-form navbar-left searchformmargin" onSubmit="return searchCars(CarPlate)">
+					<div class="form-group">
+						<input type="text" class="form-control searchform" name="CarPlate" placeholder="Card Plate">
+						
+				  </div>
+					<button class="searchbutton" type="submit" style="margin: 10px;"><span class="glyphicon glyphicon-search "></span></button>
+					<button class="buttonito">Add Car</button>
+				</form>
+			</div>
+		</nav>
+	</div>
+</div>
+<!-- ____________________Featured Section ______________________________--> 
+
+	<div class="wrapper">
+	  <div class="card">
+		  <div class="product-left">
+			<div class="headerp">
+			  <h1>Porshe 911</h1> <!--Brand and Model-->
+			</div>
+			<div class="product-main">
+			  <div class="focus"></div>
+			</div>
+			<div class="product-details">
+			  <div class="product-total">
+				<h3>Car Plate: 121298</h3> <!--CarPlate-->
+				<h3>Status: <em style="color: green">Active</em></h3>  <!--Brand and Model-->
+				  
+			  </div>
+			</div>
+			<div class="product-btns">
+			  <a href="#" class="product-add">Toggle Status</a>
+			</div>
+		  </div>
+		  <div class="product-right">
+			<img src="image/featurporch.jpg" alt="">
+		  </div>
+		</div>
+	  <div class="card">
+		  <div class="product-left">
+		    <div class="headerp">
+		      <h1>Porshe 911</h1>
+		      <!--Brand and Model-->
+	        </div>
+		    <div class="product-main">
+		      <div class="focus"></div>
+	        </div>
+		    <div class="product-details">
+		      <div class="product-total">
+		        <h3>Car Plate: 121298</h3>
+		        <!--CarPlate-->
+		        <h3>Status: <em style="color: green">Active</em></h3>
+		        <!--Brand and Model-->
+	          </div>
+	        </div>
+		    <div class="product-btns"> <a href="#" class="product-add">Toggle Status</a> </div>
+	      </div>
+		  <div class="product-right"> <img src="image/featurporch.jpg" alt=""> </div>
+	  </div>
+		<div class="card">
+		  <div class="product-left">
+		    <div class="headerp">
+		      <h1>Porshe 911</h1>
+		      <!--Brand and Model-->
+	        </div>
+		    <div class="product-main">
+		      <div class="focus"></div>
+	        </div>
+		    <div class="product-details">
+		      <div class="product-total">
+		        <h3>Car Plate: 121298</h3>
+		        <!--CarPlate-->
+		        <h3>Status: <em style="color: green">Active</em></h3>
+		        <!--Brand and Model-->
+	          </div>
+	        </div>
+		    <div class="product-btns"> <a href="#" class="product-add">Toggle Status</a></div>
+	      </div>
+		  <div class="product-right"> <img src="image/featurporch.jpg" alt=""></div>
+	  </div>
+</div>
+
+	<!-- ______________________________________________________Bottom Menu ______________________________-->
+	<div class="bottommenu">
+		
+		<p>"<em style="color:#C59E47 ">Quality</em> never goes out of style" <br>
+			</p>
+		 <img src="image/line.png" alt="line"> <br>
+			<div class="footer"> </div>
+	</div>
+<script src="customer.js" type="text/javascript"></script>
+</body>
+</html>
