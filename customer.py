@@ -35,6 +35,24 @@ def search_car():
     return render_template("customer/customer_search_car.html")
 
 
+@bp.route('/customer_reserve', methods=["GET", "POST"])
+def reserve_car():
+    if request.method == "POST":
+        content = request.json
+        custid = session['id']
+        carid = 'CAI83'
+        reserve_date = datetime.date.today()
+        pickup_date = request.form['start_date']
+        return_date = request.form['end_date']
+        bill = datetime.datetime.strptime(f"{pickup_date} 11:11AM", '%Y-%m-%d %I:%M%p').date() - datetime.datetime.strptime(f"{return_date} 11:11AM", '%Y-%m-%d %I:%M%p').date()
+        bill = bill.days * 50
+        paid = True
+        db.execute(sql.car_reserve, (custid, carid, reserve_date, pickup_date, return_date, bill, paid))
+        # cars = db.fetchall()
+        conn.commit()
+        return render_template("customer/reserve.html")
+    return render_template("customer/reserve.html")
+
 @bp.route('/logout')
 def logout():
     session.clear()

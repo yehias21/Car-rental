@@ -52,3 +52,6 @@ customer_payments = "select carid,reserve_date,amount,date " \
 car_status = "with out_of_service as(select plateid from status where %s::date between out_start and out_end) " \
              "select plateid,'active' as status from car where car.plateid not in (select * from out_of_service) " \
              "union (select plateid,'false' from out_of_service)"
+
+# customer:
+car_reserve = "insert into reservation (custid, carid, reserve_date, pickup_date, return_date, bill, paid) values (%s, %s, %s, %s, %s, %s, %s)"
