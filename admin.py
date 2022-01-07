@@ -1,7 +1,8 @@
 import datetime
 
+import flask
 import psycopg2
-from flask import (Blueprint, flash, redirect, render_template, request, url_for, session)
+from flask import (Blueprint, flash, redirect, render_template, request, url_for, session, jsonify)
 # from auth import login_required
 import carSQL as sql
 
@@ -68,6 +69,61 @@ def view_car(plateid):
             except psycopg2.IntegrityError:
                 return redirect(url_for('cars/' + plateid))
     return render_template('admin/car', car=car)
+
+
+@bp.route('/reports/reservations', method=["POST"])
+def reservations():
+    content = request.json
+    start = content['start_date']
+    end = content['end_date']
+    db.execute(sql.all_reservations, (start, end))
+    results = db.fetchall
+    return jsonify(results=results, size=len(results))
+
+
+@bp.route('/reports/car_reservations', method=["POST"])
+def car_reservations():
+    content = request.json
+    start = content['start_date']
+    end = content['end_date']
+    car = content['car']
+    db.execute(sql.car_search_plate, (car,))
+    car = db.fetchone
+    db.execute(sql.all_reservations, (car, start, end))
+    results = db.fetchall
+    return jsonify(car=car, results=results, size=len(results))
+
+
+@bp.route('/reports/customer_reservations', method=["POST"])
+def customer_reservations():
+    content = request.json
+    customer = content['customer']
+    db.execute(sql.search_customer, (customer,))
+    customer = db.fetchone
+    db.execute(sql.customer_reservations, (customer,))
+    results = db.fetchall
+    return jsonify(customer=customer, results=results, size=len(results))
+
+
+@bp.route('/reports/payments', method=["POST"])
+def customer_payments():
+    content = request.json
+    customer = content['customer']
+    db.execute(sql.search_customer, (customer,))
+    customer = db.fetchone
+    db.execute(sql.customer_payments, (customer,))
+    results = db.fetchall
+    return jsonify(customer=customer, results=results, size=len(results))
+
+
+@bp.route('/reports/status', method=['POST'])
+def cars_status():
+    content = request.json
+    date = content['date']
+    db.execute(sql.car_status, date)
+    results = db.fetchall
+    results = [(r['plateid'], r['status']) for r in results]
+    return jsonify(results=results, size=len(results))
 
 
 @bp.route('/admin/logout')
