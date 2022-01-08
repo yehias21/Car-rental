@@ -126,7 +126,4 @@ def cars_status():
     return jsonify(results=results, size=len(results))
 
 
-@bp.route('/admin/logout')
-def logout():
-    session.clear()
-    return redirect(url_for('index'))
+

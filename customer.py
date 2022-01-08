@@ -1,4 +1,4 @@
-from flask import (Blueprint, flash, redirect, render_template, request, url_for, session)
+from flask import (Blueprint, flash, render_template, request, session)
 from auth import login_required
 import datetime
 
@@ -12,7 +12,7 @@ db = sql.db
 
 @bp.route('/customer_home', methods=["GET", "POST"])
 def home():
-    return render_template("customer/customer_home.html")
+    return render_template("Customer.html")
 
 
 @bp.route('/customer_search', methods=["GET", "POST"])
@@ -53,7 +53,3 @@ def reserve_car():
         return render_template("customer/reserve.html")
     return render_template("customer/reserve.html")
 
-@bp.route('/logout')
-def logout():
-    session.clear()
-    return redirect(url_for('index'))

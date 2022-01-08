@@ -83,4 +83,5 @@ def home():
         return redirect(url_for('admin.home'))
     elif session['role'] == 'customer':
         return redirect(url_for('customer.home'))
-    return render_template("home.html")
+    return redirect(url_for('index'))
+

@@ -2,17 +2,18 @@
 <html>
 <head>
 	<meta charset="UTF-8">
-	<title>Reports</title>
+	<title>Login</title>
 	<link rel="stylesheet" type="text/css" href="../static/source/bootstrap-3.3.6-dist/css/bootstrap.css">
 	<link rel="stylesheet" type="text/css" href="../static/source/font-awesome-4.5.0/css/font-awesome.css">
 	<link rel="stylesheet" type="text/css" href="../static/style/mystyle.css">
+    <script src="{{ url_for('static', filename='login.js') }}"></script>
 </head>
 <body>
 <!-- Header -->
 <div class="allcontain">
 	<div class="header" style="padding: 2px">
 			<ul class="socialicon">
-				<li><a href="index.html" class="logreg">CLASSICAR</a></li>
+				<li><a href="/redirect/index.html" class="logreg">CLASSICAR</a></li>
 			</ul>
 </div>
 	<!-- Navbar Up -->
@@ -36,16 +37,16 @@
             <div class="card-body p-5" style="max-width: 400px; margin: 50px 450px">
                                 <h2 class="text-uppercase text-center mb-5" style="font-family: bebas">Login</h2>
 
-                                <form method="post">
+                                <form  id="loginForm">
 
                                     <div class="form-outline mb-4">
                                         <label class="form-label" for="form3Example1cg">Username</label>
-                                        <input type="text" id="form3Example1cg" placeholder="Your username here." class="form-control form-control-lg" name="username" required>
+                                        <input type="text" id="form3Example1cg" placeholder="Username" class="form-control form-control-lg" name="username" required>
                                   </div>
 
                                     <div class="form-outline mb-4">
                                         <label class="form-label" for="form3Example4cg">Password</label>
-                                        <input type="password" id="form3Example4cg" placeholder="********" class="form-control form-control-lg" name="password" required>
+                                        <input type="password" id="form3Example4cg" placeholder="Password" class="form-control form-control-lg" name="password" required>
                                     </div>
 
                                     <input type="radio" id="admin" name="role" value="admin" required>
@@ -57,7 +58,7 @@
                                         <button type="submit" class="btn btn-success btn-block btn-lg gradient-custom-4 text-body" name="login" style="background-color: #F8C72D">Login</button>
                                     </div>
 
-                                    <p class="text-center text-muted mt-5 mb-0">Do not have an account? <a href="register.html" class="fw-bold text-body"><u>Register here</u></a></p>
+                                    <p class="text-center text-muted mt-5 mb-0">Do not have an account? <a href="/redirect/register.html" class="fw-bold text-body"><u>Register here</u></a></p>
 
                               </form>
 
