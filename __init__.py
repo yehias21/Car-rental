@@ -24,6 +24,6 @@ def create_app():
     def logout():
         if "username" in session:
             flash(f"{session['username']} hae been log out successfuly!","info")
-        session.pop()
+        session.pop("username")
         return redirect(url_for('index'))
     return app

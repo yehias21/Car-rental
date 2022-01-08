@@ -1,24 +1,12 @@
 import psycopg2
 import functools
-from flask import (Blueprint, flash, redirect, render_template, request, url_for, session, g)
+from flask import (Blueprint, flash, redirect, render_template, request, url_for, session, g, jsonify)
 from werkzeug.security import check_password_hash, generate_password_hash
 import carSQL as sql
 
 bp = Blueprint('auth', __name__, url_prefix='/auth')
 conn = sql.conn
 db = sql.db
-
-
-# @bp.before_app_request
-# def load_logged_in_user():
-#     username = session.get('username')
-#     if username is None:
-#         g.user = None
-#     else:
-#         db.execute(sql.login_query(session['role']), (username,))
-#         g.user = db.fetchone
-
-
 def login_required(view):
     @functools.wraps(view)
     def wrapped_view(**kwargs):
@@ -33,10 +21,11 @@ def login_required(view):
 @bp.route("/login", methods=["GET", "POST"])
 def login():
     if request.method == 'POST':
-        username = request.form['username']
-        password = request.form['password']
-        role = request.form['role']
-        role = 'admin' if role == 'admin' else 'customer'
+        data=request.get_json()
+        print(data)
+        username = data['username']
+        password = data['password']
+        role = data['role']
         error = None
         db.execute(sql.login_query(role), (username,))
         user = db.fetchone()
@@ -49,9 +38,8 @@ def login():
             session['role'] = role
             session['username'] = user['username']
             session['id'] = user['id']
-            return redirect(url_for('auth.home'))
-        flash(error)
-    return render_template("auth/login.html")
+            return jsonify(ok=1)
+        return jsonify(ok=0)
 
 
 @bp.route("/register", methods=["GET", "POST"])
