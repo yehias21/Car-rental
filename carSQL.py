@@ -1,5 +1,6 @@
 from psycopg2 import sql
 import psycopg2.extras
+from flask import session
 
 DB_HOST = "localhost"
 DB_NAME = "carsystem"
@@ -54,4 +55,33 @@ car_status = "with out_of_service as(select plateid from status where %s::date b
              "union (select plateid,'false' from out_of_service)"
 
 # customer:
+def search_car(form):
+    location = session['country']
+    where = " WHERE "
+    brand = form['brand']
+    model = form['model']
+    color = form['color']
+    start_date = form['start_date']
+    end_date = form['end_date']
+    if (brand): where += f" brand = '{brand}' and"
+    if (model): where += f" model = '{model} 'and"
+    if (color): where += f" color = '{color}' and"
+    if (start_date): where += f"pickup_date not between " \
+                                              f"'{start_date}' and '{end_date}' and '{start_date}' not between " \
+                                              f"pickup_date and return_date and"
+
+    query = "SELECT  brand,model,rate,extract(year from car.modelyr),encode(car_image.image,'hex') img " \
+            "FROM car natural join car_image left join reservation on car.plateid=reservation.carid" \
+            + where + " active=true and officeloc = " + f"'{location}'"
+    return query
 car_reserve = "insert into reservation (custid, carid, reserve_date, pickup_date, return_date, bill, paid) values (%s, %s, %s, %s, %s, %s, %s)"
+submit_payment = "insert into payments (rid, custid, amount, date) values (%s, %s, %s, %s)"
+get_rid = "select rid from reservation where custid = %s and carid = %s and reserve_date = %s"
+get_car_rate = "select rate from car where plateid = %s"
+update_paid_car = "UPDATE reservation SET paid = True WHERE rid = %s"
+get_reserved_cars_between_date = "select distinct C.plateid from car as C join reservation as R on C.plateid = R.carid where %s " \
+                   "between R.pickup_date and R.return_date or R.pickup_date between %s and %s "
+
+
+# car:
+all_cars = "SELECT * FROM car NATURAL JOIN car_image where officeloc = %s"

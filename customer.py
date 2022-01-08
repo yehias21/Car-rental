@@ -1,5 +1,6 @@
 from flask import (Blueprint, flash, redirect, render_template, request, url_for, session)
 from auth import login_required
+import psycopg2
 import datetime
 
 import carSQL as sql
@@ -19,17 +20,7 @@ def home():
 def search_car():
     if request.method == "POST":
         content = request.json
-        where = " WHERE "
-        if (request.form['brand']): where += f" brand={request.form['brand']} and"
-        if (request.form['model']): where += f" model={request.form['model']} and"
-        if (request.form['color']): where += f" color={request.form['color']} and"
-        if (request.form['start_date']): where += f"pickup_date not between " \
-                                             f"'{request.form['start_date']}' and '{request.form['end_date']}' and '{request.form['start_date']}' not between " \
-                                             f"pickup_date and return_date and"
-        query = "SELECT  brand,model,rate,extract(year from car.modelyr),encode(car_image.image,'hex') img " \
-                "FROM car natural join car_image left join reservation on car.plateid=reservation.carid" \
-                + where + " active=true;"
-        db.execute(query)
+        db.execute(sql.search_car(request.form))
         cars = db.fetchall()
         return render_template("cars.html", cars=cars)
     return render_template("customer/customer_search_car.html")
@@ -38,20 +29,68 @@ def search_car():
 @bp.route('/customer_reserve', methods=["GET", "POST"])
 def reserve_car():
     if request.method == "POST":
-        content = request.json
-        custid = session['id']
-        carid = 'CAI83'
-        reserve_date = datetime.date.today()
-        pickup_date = request.form['start_date']
-        return_date = request.form['end_date']
-        bill = datetime.datetime.strptime(f"{pickup_date} 11:11AM", '%Y-%m-%d %I:%M%p').date() - datetime.datetime.strptime(f"{return_date} 11:11AM", '%Y-%m-%d %I:%M%p').date()
-        bill = bill.days * 50
-        paid = True
-        db.execute(sql.car_reserve, (custid, carid, reserve_date, pickup_date, return_date, bill, paid))
-        # cars = db.fetchall()
-        conn.commit()
-        return render_template("customer/reserve.html")
+        if request.form['reserve'] == 'no_pay':
+            content = request.json
+            custid = session['id']
+            carid = 'CALI99'
+            reserve_date = datetime.date.today()
+            pickup_date = request.form['start_date']
+            return_date = request.form['end_date']
+            bill = datetime.datetime.fromisoformat(return_date) - datetime.datetime.fromisoformat(pickup_date)
+            bill = bill.days * 500
+            paid = False
+            db.execute(sql.get_reserved_cars_between_date, (pickup_date, pickup_date, return_date))
+            reserved_cars = db.fetchall()
+            if carid not in [c['plateid'] for c in reserved_cars]:
+                try:
+                    db.execute(sql.car_reserve, (custid, carid, reserve_date, pickup_date, return_date, bill, paid))
+                    conn.commit()
+                    return redirect(url_for('customer.home'))
+                except psycopg2.IntegrityError:
+                    error = f"Car {carid} is already reserved."
+                    db.execute("ROLLBACK")
+                    flash(error)
+            else:
+                error = "Car is unavailable in this period."
+                flash(error)
+        elif request.form['reserve'] == 'with_pay':
+            content = request.json
+            custid = session['id']
+            carid = 'CALI99'
+            current_date = datetime.date.today()
+            pickup_date = request.form['start_date']
+            return_date = request.form['end_date']
+            bill = datetime.datetime.fromisoformat(return_date) - datetime.datetime.fromisoformat(pickup_date)
+            bill = bill.days * 500
+            paid = True
+            db.execute(sql.get_reserved_cars_between_date, (pickup_date, pickup_date, return_date))
+            reserved_cars = db.fetchall()
+            if carid not in [c['plateid'] for c in reserved_cars]:
+                try:
+                    db.execute(sql.car_reserve, (custid, carid, current_date, pickup_date, return_date, bill, paid))
+                    conn.commit()
+                    db.execute(sql.get_rid, (custid, carid, current_date))
+                    rid = db.fetchall()
+                    rid = max([r['rid'] for r in rid])
+                    db.execute(sql.submit_payment, (rid, custid, bill, current_date))
+                    conn.commit()
+                    return redirect(url_for('customer.home'))
+                except psycopg2.IntegrityError:
+                    error = f"Car {carid} is already reserved."
+                    db.execute("ROLLBACK")
+                    flash(error)
+            else:
+                error = "Car is unavailable in this period."
+                flash(error)
     return render_template("customer/reserve.html")
+
+
+@bp.route("/reservations")
+def view_reservations():
+    custid = session['id']
+    db.execute(sql.customer_reservations, (custid,))
+    reservations = db.fetchall()
+    return render_template("customer/reservations.html", reservations=reservations)
 
 @bp.route('/logout')
 def logout():

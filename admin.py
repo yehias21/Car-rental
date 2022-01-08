@@ -77,7 +77,7 @@ def reservations():
     start = content['start_date']
     end = content['end_date']
     db.execute(sql.all_reservations, (start, end))
-    results = db.fetchall
+    results = db.fetchall()
     return jsonify(results=results, size=len(results))
 
 
@@ -90,7 +90,7 @@ def car_reservations():
     db.execute(sql.car_search_plate, (car,))
     car = db.fetchone
     db.execute(sql.all_reservations, (car, start, end))
-    results = db.fetchall
+    results = db.fetchall()
     return jsonify(car=car, results=results, size=len(results))
 
 
@@ -101,7 +101,7 @@ def customer_reservations():
     db.execute(sql.search_customer, (customer,))
     customer = db.fetchone
     db.execute(sql.customer_reservations, (customer,))
-    results = db.fetchall
+    results = db.fetchall()
     return jsonify(customer=customer, results=results, size=len(results))
 
 
@@ -112,7 +112,7 @@ def customer_payments():
     db.execute(sql.search_customer, (customer,))
     customer = db.fetchone
     db.execute(sql.customer_payments, (customer,))
-    results = db.fetchall
+    results = db.fetchall()
     return jsonify(customer=customer, results=results, size=len(results))
 
 
@@ -121,7 +121,7 @@ def cars_status():
     content = request.json
     date = content['date']
     db.execute(sql.car_status, date)
-    results = db.fetchall
+    results = db.fetchall()
     results = [(r['plateid'], r['status']) for r in results]
     return jsonify(results=results, size=len(results))
 

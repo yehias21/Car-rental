@@ -9,6 +9,6 @@ db = sql.db
 
 @bp.route("/cars", methods=["GET", "POST"])
 def show_all_cars():
-    db.execute("SELECT * FROM car NATURAL JOIN car_image")
+    db.execute(sql.all_cars)
     cars = db.fetchall()
     return render_template("cars.html", cars=cars)

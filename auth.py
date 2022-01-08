@@ -49,6 +49,10 @@ def login():
             session['role'] = role
             session['username'] = user['username']
             session['id'] = user['id']
+            print(user)
+            print(user['country'])
+            session['country'] = user['country']
+            print(session['country'])
             return redirect(url_for('auth.home'))
         flash(error)
     return render_template("auth/login.html")
@@ -72,6 +76,7 @@ def register():
             return redirect(url_for('auth.login'))
         except psycopg2.IntegrityError:
             error = f"User {username} is already registered."
+            db.execute("ROLLBACK")
             flash(error)
 
     return render_template("auth/register.html")

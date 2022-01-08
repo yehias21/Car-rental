@@ -14,20 +14,20 @@
 
                                     <div class="form-outline mb-4">
                                         <label class="form-label" for="form3Example1cg">Pickup Date</label>
-                                        <input type="date" id="form3Example1cg" class="form-control form-control-lg" name="start_date" >
+                                        <input type="date" id="form3Example1cg" class="form-control form-control-lg" name="start_date" required >
                                     </div>
 
                                     <div class="form-outline mb-4">
                                         <label class="form-label" for="form3Example1cg">Return Date</label>
-                                        <input type="date" id="form3Example1cg" class="form-control form-control-lg" name="end_date" >
+                                        <input type="date" id="form3Example1cg" class="form-control form-control-lg" name="end_date" required>
                                     </div>
 
                                     <div class="d-flex justify-content-center">
-                                        <button type="submit" class="btn btn-success btn-block btn-lg gradient-custom-4 text-body" name="reserve_and_pay">Reserve</button>
+                                        <button type="submit" class="btn btn-success btn-block btn-lg gradient-custom-4 text-body" name="reserve" value="with_pay">Reserve & Pay</button>
                                     </div>
 
                                     <div class="d-flex justify-content-center">
-                                        <button type="submit" class="btn btn-success btn-block btn-lg gradient-custom-4 text-body" name="reserve_and_pay">Reserve</button>
+                                        <button type="submit" class="btn btn-success btn-block btn-lg gradient-custom-4 text-body" name="reserve" value="no_pay">Reserve Without Paying</button>
                                     </div>
 
                                     <p class="text-center text-muted mt-5 mb-0">Not Sure Which Car? <a href="/car/cars" class="fw-bold text-body"><u>Find All Cars</u></a></p>
