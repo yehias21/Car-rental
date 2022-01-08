@@ -4,34 +4,48 @@ from flask import (Blueprint, flash, redirect, render_template, request, url_for
 from werkzeug.security import check_password_hash, generate_password_hash
 import carSQL as sql
 
+
+def parametrized(dec):
+    def layer(*args, **kwargs):
+        def repl(f):
+            return dec(f, *args, **kwargs)
+
+        return repl
+
+    return layer
+
+
+@parametrized
+def login_required(func, role):
+    @functools.wraps(func)
+    def wrapped_view(**kwargs):
+        print(g.user)
+        requesting_role = role
+        if g.user is None or (requesting_role == 'customer' and g.user.get('city') is None):
+            return redirect(url_for('auth.login'))
+        return func(**kwargs)
+
+    return wrapped_view
+
+
 bp = Blueprint('auth', __name__, url_prefix='/auth')
 conn = sql.conn
 db = sql.db
 
 
-# @bp.before_app_request
-# def load_logged_in_user():
-#     username = session.get('username')
-#     if username is None:
-#         g.user = None
-#     else:
-#         db.execute(sql.login_query(session['role']), (username,))
-#         g.user = db.fetchone
-
-
-def login_required(view):
-    @functools.wraps(view)
-    def wrapped_view(**kwargs):
-        if g.user is None:
-            return redirect(url_for('auth.login'))
-
-        return view(**kwargs)
-
-    return wrapped_view
+@bp.before_app_request
+def load_logged_in_user():
+    username = session.get('username')
+    if username is None:
+        g.user = None
+    else:
+        db.execute(sql.login_query(session['role']), (username,))
+        g.user = db.fetchone()
 
 
 @bp.route("/login", methods=["GET", "POST"])
 def login():
+    session.clear()
     if request.method == 'POST':
         username = request.form['username']
         password = request.form['password']
@@ -79,7 +93,7 @@ def register():
 @bp.route("/home", methods=["GET", "POST"])
 def home():
     if session['role'] == 'admin':
-        return redirect(url_for('admin.home'))
+        return redirect(url_for('admin.register_car'))
     elif session['role'] == 'customer':
         return redirect(url_for('customer.home'))
     return render_template("home.html")
