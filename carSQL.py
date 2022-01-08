@@ -29,7 +29,11 @@ car_search_plate = "SELECT car.plateid, extract(year from car.modelyr) as year, 
                    "encode(car_image.image,'hex') img " \
                    "FROM car natural join car_image WHERE plateid = %s "
 
-update_car = "UPDATE car SET (active,rate) = (%s,%s) WHERE plateid = %s"
+update_car_rate = "UPDATE car SET rate = %s WHERE plateid = %s"
+update_car_state = "UPDATE car SET active = %s::bool WHERE plateid = %s"
+car_out_service = "INSERT INTO status(plateid, out_start) values(%s,%s::date) "
+car_in_service = "UPDATE status SET out_end = %s WHERE plateid = %s AND out_end IS NULL"
+
 search_customer = "select * from customer where username = %s"
 
 # reports:

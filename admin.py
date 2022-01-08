@@ -55,23 +55,51 @@ def search_car():
         # return render_template('admin/')
 
 
-@bp.route('/cars/<string:plateid>', methods=('GET', 'POST'))
+# @bp.route('/cars/<string:plateid>', methods=('GET', 'POST'))
+# def view_car(plateid):
+#     db.execute(sql.car_search_plate, (plateid))
+#     car = db.fetchone()
+#     if request.method == 'POST':
+#         new_state = request.form['active']
+#         new_rate = request.form['rate']
+#         if new_state != car['active'] or car['rate'] != new_rate:
+#             try:
+#                 db.execute(sql.update_car, (new_state, new_rate, plateid))
+#                 conn.commit()
+#             except psycopg2.IntegrityError:
+#                 return redirect(url_for('cars/' + plateid))
+#     return render_template('admin/car', car=car)
+
+@bp.route('/car/<string:plateid>', methods=['GET', 'POST'])
 def view_car(plateid):
-    db.execute(sql.car_search_plate, (plateid))
-    car = db.fetchone()
+    db.execute(sql.car_search_plate, (plateid,))
+    car = db.fetchone
+    content = request.json
     if request.method == 'POST':
-        new_state = request.form['active']
-        new_rate = request.form['rate']
-        if new_state != car['active'] or car['rate'] != new_rate:
+        new_state = content['active']
+        new_rate = content['rate']
+        if new_rate != car['rate']:
             try:
-                db.execute(sql.update_car, (new_state, new_rate, plateid))
+                db.execute(sql.update_car_rate, (new_rate, plateid))
                 conn.commit()
             except psycopg2.IntegrityError:
-                return redirect(url_for('cars/' + plateid))
-    return render_template('admin/car', car=car)
+                var = ()
+                # TODO THROW ERROR
+        try:
+            if (new_state, content['state']) == (False, True):
+                db.execute(sql.update_car_state, (new_state, plateid))
+                db.execute(sql.car_out_service, (plateid, str(datetime.date.today())))
+                conn.commit()
+            elif (new_state, content['state']) == (True, False):
+                db.execute(sql.update_car_state, (new_state, plateid))
+                db.execute(sql.car_in_service, (str(datetime.date.today()), plateid))
+                conn.commit()
+        except psycopg2.IntegrityError:
+            var = ()
+            # TODO THROW ERROR
 
 
-@bp.route('/reports/reservations', method=["POST"])
+@bp.route('/reports/reservations', methods=["POST"])
 def reservations():
     content = request.json
     start = content['start_date']
@@ -81,7 +109,7 @@ def reservations():
     return jsonify(results=results, size=len(results))
 
 
-@bp.route('/reports/car_reservations', method=["POST"])
+@bp.route('/reports/car_reservations', methods=["POST"])
 def car_reservations():
     content = request.json
     start = content['start_date']
@@ -94,7 +122,7 @@ def car_reservations():
     return jsonify(car=car, results=results, size=len(results))
 
 
-@bp.route('/reports/customer_reservations', method=["POST"])
+@bp.route('/reports/customer_reservations', methods=["POST"])
 def customer_reservations():
     content = request.json
     customer = content['customer']
@@ -105,7 +133,7 @@ def customer_reservations():
     return jsonify(customer=customer, results=results, size=len(results))
 
 
-@bp.route('/reports/payments', method=["POST"])
+@bp.route('/reports/payments', methods=["POST"])
 def customer_payments():
     content = request.json
     customer = content['customer']
@@ -116,7 +144,7 @@ def customer_payments():
     return jsonify(customer=customer, results=results, size=len(results))
 
 
-@bp.route('/reports/status', method=['POST'])
+@bp.route('/reports/status', methods=['POST'])
 def cars_status():
     content = request.json
     date = content['date']
