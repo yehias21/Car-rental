@@ -45,7 +45,6 @@ def load_logged_in_user():
 
 @bp.route("/login", methods=["GET", "POST"])
 def login():
-    session.clear()
     if request.method == 'POST':
         username = request.form['username']
         password = request.form['password']
@@ -93,7 +92,7 @@ def register():
 @bp.route("/home", methods=["GET", "POST"])
 def home():
     if session['role'] == 'admin':
-        return redirect(url_for('admin.register_car'))
+        return redirect(url_for('admin.home'))
     elif session['role'] == 'customer':
         return redirect(url_for('customer.home'))
     return render_template("home.html")
