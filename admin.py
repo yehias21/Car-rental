@@ -3,7 +3,7 @@ import datetime
 import flask
 import psycopg2
 from flask import (Blueprint, flash, redirect, render_template, request, url_for, session, jsonify)
-# from auth import login_required
+from auth import login_required
 import carSQL as sql
 
 bp = Blueprint('admin', __name__, url_prefix='/admin')
@@ -12,7 +12,7 @@ db = sql.db
 
 
 @bp.route("/register_car", methods=["GET", "POST"])
-# @login_required
+@login_required
 def register_car():
     if request.method == 'POST':
         image = request.files['image'].read()
