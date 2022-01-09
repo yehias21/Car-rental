@@ -10,6 +10,14 @@ bp = Blueprint('admin', __name__, url_prefix='/admin')
 conn = sql.conn
 db = sql.db
 
+@bp.route('/admin_home', methods=["GET", "POST"])
+@login_required(role='admin')
+def home():
+    return render_template("addAndManageCars.html")
+@bp.route('/Reports', methods=["GET", "POST"])
+@login_required(role='admin')
+def records():
+    return render_template("Reports.html")
 
 @bp.route("/register_car", methods=["GET", "POST"])
 @login_required(role='admin')
@@ -36,7 +44,7 @@ def register_car():
             flash(error)
         else:
             return redirect(url_for("admin"))
-    return render_template('admin/register_car.html')
+    return render_template('addAndManageCars.html')
 
 
 @bp.route("/search_car", methods=["GET", "POST"])
