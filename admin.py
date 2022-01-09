@@ -12,7 +12,7 @@ db = sql.db
 
 
 @bp.route("/register_car", methods=["GET", "POST"])
-@login_required
+@login_required(role='admin')
 def register_car():
     if request.method == 'POST':
         image = request.files['image'].read()
@@ -40,6 +40,7 @@ def register_car():
 
 
 @bp.route("/search_car", methods=["GET", "POST"])
+@login_required(role='admin')
 def search_car():
     if request.method == 'POST':
         content = request.form
@@ -59,6 +60,7 @@ def search_car():
 
 
 @bp.route('/car/<string:plateid>', methods=['GET', 'POST'])
+@login_required(role='admin')
 def view_car(plateid):
     db.execute(sql.car_search_plate, (plateid,))
     car = db.fetchone
@@ -88,6 +90,7 @@ def view_car(plateid):
 
 
 @bp.route('/reports/reservations', methods=["POST"])
+@login_required(role='admin')
 def reservations():
     content = request.json
     start = content['start_date']
@@ -98,6 +101,7 @@ def reservations():
 
 
 @bp.route('/reports/car_reservations', methods=["POST"])
+@login_required(role='admin')
 def car_reservations():
     content = request.json
     start = content['start_date']
@@ -111,6 +115,7 @@ def car_reservations():
 
 
 @bp.route('/reports/customer_reservations', methods=["POST"])
+@login_required(role='admin')
 def customer_reservations():
     content = request.json
     customer = content['customer']
@@ -122,6 +127,7 @@ def customer_reservations():
 
 
 @bp.route('/reports/payments', methods=["POST"])
+@login_required(role='admin')
 def customer_payments():
     content = request.json
     customer = content['customer']
@@ -133,6 +139,7 @@ def customer_payments():
 
 
 @bp.route('/reports/status', methods=['POST'])
+@login_required(role='admin')
 def cars_status():
     content = request.json
     date = content['date']
@@ -143,6 +150,7 @@ def cars_status():
 
 
 @bp.route('/admin/logout')
+@login_required(role='admin')
 def logout():
     session.clear()
     return redirect(url_for('index'))

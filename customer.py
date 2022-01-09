@@ -18,6 +18,7 @@ def home():
 
 
 @bp.route('/customer_search', methods=["GET", "POST"])
+@login_required(role='customer')
 def search_car():
     if request.method == "POST":
         content = request.json
@@ -28,6 +29,7 @@ def search_car():
 
 
 @bp.route('/customer_reserve', methods=["GET", "POST"])
+@login_required(role='customer')
 def reserve_car():
     if request.method == "POST":
         if request.form['reserve'] == 'no_pay':
@@ -87,6 +89,7 @@ def reserve_car():
 
 
 @bp.route("/reservations")
+@login_required(role='customer')
 def view_reservations():
     custid = session['id']
     db.execute(sql.customer_reservations, (custid,))
@@ -94,6 +97,7 @@ def view_reservations():
     return render_template("customer/reservations.html", reservations=reservations)
 
 @bp.route('/logout')
+@login_required(role='customer')
 def logout():
     session.clear()
     return redirect(url_for('index'))

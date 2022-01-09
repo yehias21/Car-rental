@@ -19,9 +19,8 @@ def parametrized(dec):
 def login_required(func, role):
     @functools.wraps(func)
     def wrapped_view(**kwargs):
-        print(g.user)
         requesting_role = role
-        if g.user is None or (requesting_role == 'customer' and g.user.get('city') is None):
+        if g.user is None or (requesting_role == 'customer' and g.user.get('city') is None) or (requesting_role == 'admin' and g.user.get('city') is not None):
             return redirect(url_for('auth.login'))
         return func(**kwargs)
 
@@ -62,10 +61,7 @@ def login():
             session['role'] = role
             session['username'] = user['username']
             session['id'] = user['id']
-            print(user)
-            print(user['country'])
-            session['country'] = user['country']
-            print(session['country'])
+            session['country'] = user.get('country')
             return redirect(url_for('auth.home'))
         flash(error)
     return render_template("auth/login.html")
