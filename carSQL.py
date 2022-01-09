@@ -65,21 +65,23 @@ car_status = "with out_of_service as(select plateid from status where %s::date b
 def search_car(form):
     location = session['country']
     where = " WHERE "
+    where_2 = " "
     brand = form['brand']
     model = form['model']
     color = form['color']
     start_date = form['start_date']
     end_date = form['end_date']
-    if (brand): where += f" brand = '{brand}' and"
-    if (model): where += f" model = '{model} 'and"
-    if (color): where += f" color = '{color}' and"
-    if (start_date): where += f"pickup_date not between " \
-                                              f"'{start_date}' and '{end_date}' and '{start_date}' not between " \
-                                              f"pickup_date and return_date and"
+    if (brand): where += f" brand = '{brand}' and "
+    if (model): where += f" model = '{model}' and "
+    if (color): where += f" color = '{color}' and "
+    if (start_date): where_2 += f"plateid not in ( SELECT  distinct plateid FROM car natural join car_image " \
+                                f"left join reservation on car.plateid=reservation.carid WHERE pickup_date between " \
+                                              f"'{start_date}' and '{end_date}' or '{start_date}' between " \
+                                              f"pickup_date and return_date ) and "
 
-    query = "SELECT  brand,model,rate,extract(year from car.modelyr),encode(car_image.image,'hex') img " \
-            "FROM car natural join car_image left join reservation on car.plateid=reservation.carid" \
-            + where + " active=true and officeloc = " + f"'{location}'"
+    query = "SELECT distinct plateid, brand, model, rate, extract(year from car.modelyr),encode(car_image.image,'hex') img " \
+            "FROM car natural join car_image left join reservation on car.plateid=reservation.carid " \
+            + where + where_2 + "active=true and officeloc = " + f"'{location}'"
     return query
 car_reserve = "insert into reservation (custid, carid, reserve_date, pickup_date, return_date, bill, paid) values (%s, %s, %s, %s, %s, %s, %s)"
 submit_payment = "insert into payments (rid, custid, amount, date) values (%s, %s, %s, %s)"
@@ -89,6 +91,11 @@ update_paid_car = "UPDATE reservation SET paid = True WHERE rid = %s"
 get_reserved_cars_between_date = "select distinct C.plateid from car as C join reservation as R on C.plateid = R.carid where %s " \
                    "between R.pickup_date and R.return_date or R.pickup_date between %s and %s "
 
+past_reservations = "SELECT *, encode(car_image.image,'hex') img  from reservation join car_image on car_image.plateid = reservation.carid where custid = %s and return_date < %s "
+current_reservations = "SELECT *, encode(car_image.image,'hex') img  from reservation join car_image on car_image.plateid = reservation.carid where custid = %s and %s between pickup_date and return_date"
+pending_reservations = "SELECT *, encode(car_image.image,'hex') img  from reservation join car_image on car_image.plateid = reservation.carid where custid = %s and pickup_date > %s"
+
+get_reservation_data = "SELECT custid, bill from reservation where rid = %s"
 
 # car:
 all_cars = "SELECT car.plateid, extract(year from car.modelyr) as year, brand, model, color, active, rate , " \

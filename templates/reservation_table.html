@@ -1,0 +1,79 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Search Cars</title>
+	<link rel="stylesheet" type="text/css" href="../static/source/bootstrap-3.3.6-dist/css/bootstrap.css">
+	<link rel="stylesheet" type="text/css" href="../static/source/font-awesome-4.5.0/css/font-awesome.css">
+	<link rel="stylesheet" type="text/css" href="../static/style/mystyle.css">
+</head>
+<body>
+<!-- Header -->
+<div class="allcontain">
+	<div class="header" style="padding: 2px">
+			<ul class="socialicon">
+				<li><a href="/customer/customer_home" class="logreg">CLASSICAR</a></li>
+			</ul>
+			<ul class="logreg">
+				<li><a href="/customer/reservations">My Reservations </a> </li>
+				<li><a href="/logout"><span class="register">Logout</span></a></li>
+			</ul>
+	</div>
+</div>
+<div id="carousel-up" class="carousel slide" data-ride="carousel">
+		<h2 align="center" style="font-family: bebas">My {{ period }} Reservations</h2>
+</div>
+<!-- ____________________Featured Section ______________________________-->
+
+	<div class="wrapper">
+        {% for res in reservations %}
+
+                <div class="card">
+                    <form class="card" method="post">
+                          <div class="product-left">
+                                <div class="headerp">
+                                    <h1>Reservation ID: {{ res['rid'] }}</h1>
+                                    <h1>Car Plate ID : {{ res['carid'] }}</h1>
+                                </div>
+                                <div class="product-main">
+                                    <div class="focus"> </div>
+                                </div>
+                                <div class="product-details">
+                                      <div class="product-total">
+                                        <h3>Reservation Date: {{ res['reserve_date'] }}</h3>
+                                        <h3>Pick Up Date: {{ res['pickup_date'] }}</h3>
+                                        <h3>Return Date: {{ res['return_date'] }}</h3>
+                                        <h3>Total Fare: {{ res['bill'] }}</h3>
+                                        {% if res['paid'] %}
+                                            <h3>Reservation Status: Paid</h3>
+                                        {% else %}
+                                            <h3>Reservation Status: Un Paid</h3>
+                                        {% endif %}
+                                      </div>
+                                </div>
+                                        {% if res['paid'] == false %}
+                                            <div class="product-btns">
+                                                <input type="hidden" name="rid" value="{{ res['rid'] }}">
+                                                <button type="submit" class="product-add">RENT CAR</button>
+                                            </div>
+                                        {% endif %}
+                          </div>
+                          <div class="product-right">
+                                <img src="{{ res['img'] }}" alt="Car here" >
+                          </div>
+                    </form>
+                </div>
+        {% endfor %}
+    </div>
+
+	<!-- ______________________________________________________Bottom Menu ______________________________-->
+	<div class="bottommenu">
+
+		<p>"<em style="color:#C59E47 ">Quality</em> never goes out of style" <br>
+			</p>
+		 <img src="../static/image/line.png" alt="line"> <br>
+			<div class="footer"> </div>
+	</div>
+<script src="../static/customer.js" type="text/javascript"></script>
+</body>
+</html>

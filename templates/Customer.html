@@ -12,7 +12,7 @@
 <div class="allcontain">
 	<div class="header" style="padding: 2px">
 			<ul class="socialicon">
-				<li><a href="#" class="logreg">CLASSICAR</a></li>
+				<li><a href="/customer/customer_home" class="logreg">CLASSICAR</a></li>
 			</ul>
 			<ul class="logreg">
 				<li><a href="/customer/reservations">My Reservations </a> </li>
@@ -51,15 +51,15 @@
 				<div class="searchtxt">
 					<h1 style="color: black">SEARCH CARS</h1>
 				</div>
-				<form class="navbar-form navbar-left searchformmargin" onSubmit="return searchCars(Brand,Model)">
+				<form class="navbar-form navbar-left searchformmargin" onSubmit="return searchCars(Brand,Model)" method="post">
 					<div class="form-group">
-						<input type="text" class="form-control searchform" name="Brand" placeholder="Brand">
-						<input type="text" class="form-control searchform" name="Model" placeholder="Model">
-						<input type="text" class="form-control searchform" placeholder="Color">
+						<input type="text" class="form-control searchform" name="brand" placeholder="Brand">
+						<input type="text" class="form-control searchform" name="model" placeholder="Model">
+						<input type="text" class="form-control searchform" name="color" placeholder="Color">
 						<label style="color: #FFF" >From:</label>
-						<input type="date" class="form-control searchform" placeholder="Pickup Date">
+						<input type="date" class="form-control searchform" name="start_date" placeholder="Pickup Date">
 						<label style="color: #FFF" >To:</label>
-						<input type="date" class="form-control searchform" placeholder="Return Date">
+						<input type="date" class="form-control searchform" name="end_date" placeholder="Return Date">
 					</div>
 					<button class="searchbutton" type="submit" style="margin: 10px;"  name="submit_type" value="search"><span class="glyphicon glyphicon-search "></span></button>
 				</form>
@@ -73,7 +73,7 @@
         {% for car in cars %}
 
                 <div class="card">
-                    <form class="card" method="post">
+                    <form action="customer_reserve/{{ car['plateid'] }}" class="card" method="get">
                           <div class="product-left">
                                 <div class="headerp">
                                     <h1>{{ car['brand'] + " " + car['model'] }}</h1> <!--Brand and Model-->
@@ -85,11 +85,11 @@
                                       <div class="product-total">
                                         <h3>Price/Day: {{ car['rate'] }}</h3> <!--Price-->
                                         <h3>Color: {{ car['color'] }}</h3>  <!--Brand and Model-->
-
+                                        <label hidden id="{{ car['plateid'] }}">{{ car['plateid'] }}</label>
                                       </div>
                                 </div>
                                         <div class="product-btns">
-                                          <input type="hidden" name="carid" value="{{ car['plateid'] }}">
+                                            <button type="submit" class="product-add">RENT CAR</button>
                                         </div>
                           </div>
                           <div class="product-right">
