@@ -1,4 +1,4 @@
-from flask import (Blueprint, flash, redirect, render_template, request, url_for, session)
+from flask import (Blueprint, flash, render_template, request, session)
 from auth import login_required
 import psycopg2
 import datetime
@@ -14,7 +14,7 @@ db = sql.db
 @bp.route('/customer_home', methods=["GET", "POST"])
 @login_required(role='customer')
 def home():
-    return render_template("customer/customer_home.html")
+    return render_template("Customer.html")
 
 
 @bp.route('/customer_search', methods=["GET", "POST"])
@@ -96,8 +96,3 @@ def view_reservations():
     reservations = db.fetchall()
     return render_template("customer/reservations.html", reservations=reservations)
 
-@bp.route('/logout')
-@login_required(role='customer')
-def logout():
-    session.clear()
-    return redirect(url_for('index'))

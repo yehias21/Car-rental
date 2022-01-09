@@ -1,6 +1,6 @@
 import psycopg2
 import functools
-from flask import (Blueprint, flash, redirect, render_template, request, url_for, session, g)
+from flask import (Blueprint, flash, redirect, render_template, request, url_for, session, g, jsonify)
 from werkzeug.security import check_password_hash, generate_password_hash
 import carSQL as sql
 
@@ -45,10 +45,10 @@ def load_logged_in_user():
 @bp.route("/login", methods=["GET", "POST"])
 def login():
     if request.method == 'POST':
-        username = request.form['username']
-        password = request.form['password']
-        role = request.form['role']
-        role = 'admin' if role == 'admin' else 'customer'
+        data=request.get_json()
+        username = data['username']
+        password = data['password']
+        role = data['role']
         error = None
         db.execute(sql.login_query(role), (username,))
         user = db.fetchone()
@@ -62,32 +62,32 @@ def login():
             session['username'] = user['username']
             session['id'] = user['id']
             session['country'] = user.get('country')
-            return redirect(url_for('auth.home'))
-        flash(error)
+            return jsonify(ok=1)
+        return jsonify(ok=0)
     return render_template("auth/login.html")
 
 
 @bp.route("/register", methods=["GET", "POST"])
 def register():
     if request.method == 'POST':
-        fname = request.form.get("firstname")
-        lname = request.form.get("lastname")
-        username = request.form.get("username")
-        email = request.form.get("email")
-        password = request.form.get("password")
-        country = request.form.get("country")
-        city = request.form.get("city")
-        address = request.form.get("address")
+        data=request.get_json()
+        print(data)
+        fname = data["name"]
+        lname = data["lname"]
+        username = data["username"]
+        email = data["email"]
+        password = data["password"]
+        country = data["country"]
+        city = data["city"]
+        address = data["address"]
         password = generate_password_hash(password)
         try:
             db.execute(sql.customer_register, (username, password, fname, lname, email, country, city, address))
             conn.commit()
-            return redirect(url_for('auth.login'))
+            return jsonify(ok=1)
         except psycopg2.IntegrityError:
-            error = f"User {username} is already registered."
             db.execute("ROLLBACK")
-            flash(error)
-
+            return jsonify(ok=0)
     return render_template("auth/register.html")
 
 
@@ -97,4 +97,5 @@ def home():
         return redirect(url_for('admin.home'))
     elif session['role'] == 'customer':
         return redirect(url_for('customer.home'))
-    return render_template("home.html")
+    return redirect(url_for('index'))
+
