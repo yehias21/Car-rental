@@ -70,103 +70,35 @@
 <!-- ____________________Featured Section ______________________________--> 
 
 	<div class="wrapper">
-		<div class="card">
-		  <div class="product-left">
-			<div class="headerp">
-			  <h1>Porshe 911</h1> <!--Brand and Model-->
-			</div>
-			<div class="product-main">
-			  <div class="focus"> </div>
-			</div>
-			<div class="product-details">
-			  <div class="product-total">
-				<h3>Price/Day: 13 $</h3> <!--Price-->
-				<h3>Color: Cyan</h3>  <!--Brand and Model-->
-				  
-			  </div>
-			</div>
-			<div class="product-btns">
-			  <a href="#" class="product-add">RENT CAR</a>
-			</div>
-		  </div>
-		  <div class="product-right">
-			<img src="../static/image/featurporch.jpg" alt="">
-		  </div>
-		</div>
+        {% for car in cars %}
+            <form method="post">
+                <div class="card">
+                      <div class="product-left">
+                            <div class="headerp">
+                                <h1>{{ car['brand'] + " " + car['model'] }}</h1> <!--Brand and Model-->
+                            </div>
+                            <div class="product-main">
+                                <div class="focus"> </div>
+                            </div>
+                            <div class="product-details">
+                                  <div class="product-total">
+                                    <h3>Price/Day: {{ car['rate'] }}</h3> <!--Price-->
+                                    <h3>Color: {{ car['color'] }}</h3>  <!--Brand and Model-->
 
-		<div class="card">
-			<div class="product-left">
-			  <div class="headerp">
-				<h1>Porshe 911</h1> <!--Brand and Model-->
-			  </div>
-			  <div class="product-main">
-				<div class="focus"> </div>
-			  </div>
-			  <div class="product-details">
-				<div class="product-total">
-				  <h3>Price/Day: 13 $</h3> <!--Price-->
-				  <h3>Color: Cyan</h3>  <!--Brand and Model-->
-					
-				</div>
-			  </div>
-			  <div class="product-btns">
-				<a href="#" class="product-add">RENT CAR</a>
-			  </div>
-			</div>
-			<div class="product-right">
-			  <img src="../static/image/featurporch.jpg" alt="">
-			</div>
-		  </div>
-
-		  <div class="card">
-			<div class="product-left">
-			  <div class="headerp">
-				<h1>Porshe 911</h1> <!--Brand and Model-->
-			  </div>
-			  <div class="product-main">
-				<div class="focus"> </div>
-			  </div>
-			  <div class="product-details">
-				<div class="product-total">
-				  <h3>Price/Day: 13 $</h3> <!--Price-->
-				  <h3>Color: Cyan</h3>  <!--Brand and Model-->
-					
-				</div>
-			  </div>
-			  <div class="product-btns">
-				<a href="#" class="product-add">RENT CAR</a>
-			  </div>
-			</div>
-			<div class="product-right">
-			  <img src="../static/image/featurporch.jpg" alt="">
-			</div>
-		  </div>
-
-		  <div class="card">
-			<div class="product-left">
-			  <div class="headerp">
-				<h1>Porshe 911</h1> <!--Brand and Model-->
-			  </div>
-			  <div class="product-main">
-				<div class="focus"> </div>
-			  </div>
-			  <div class="product-details">
-				<div class="product-total">
-				  <h3>Price/Day: 13 $</h3> <!--Price-->
-				  <h3>Color: Cyan</h3>  <!--Brand and Model-->
-					
-				</div>
-			  </div>
-			  <div class="product-btns">
-				<a href="#" class="product-add">RENT CAR</a>
-			  </div>
-			</div>
-			<div class="product-right">
-			  <img src="../static/image/featurporch.jpg" alt="">
-			</div>
-		  </div>
-
-	  </div>
+                                  </div>
+                            </div>
+                                    <div class="product-btns">
+                                      <input type="hidden" name="carid" value="{{ car['plateid'] }}">
+                                      <input type="submit" class="product-add">RENT CAR>
+                                    </div>
+                      </div>
+                      <div class="product-right">
+                            <img src="{{ car['img'] }}" alt="Car here" >
+                      </div>
+                </div>
+            </form>
+        {% endfor %}
+    </div>
 
 	<!-- ______________________________________________________Bottom Menu ______________________________-->
 	<div class="bottommenu">
@@ -179,3 +111,78 @@
 <script src="../static/customer.js" type="text/javascript"></script>
 </body>
 </html>
+
+
+
+
+{#		<div class="card">#}
+{#			<div class="product-left">#}
+{#			  <div class="headerp">#}
+{#				<h1>Porshe 911</h1> <!--Brand and Model-->#}
+{#			  </div>#}
+{#			  <div class="product-main">#}
+{#				<div class="focus"> </div>#}
+{#			  </div>#}
+{#			  <div class="product-details">#}
+{#				<div class="product-total">#}
+{#				  <h3>Price/Day: 13 $</h3> <!--Price-->#}
+{#				  <h3>Color: Cyan</h3>  <!--Brand and Model-->#}
+{#					#}
+{#				</div>#}
+{#			  </div>#}
+{#			  <div class="product-btns">#}
+{#				<a href="#" class="product-add">RENT CAR</a>#}
+{#			  </div>#}
+{#			</div>#}
+{#			<div class="product-right">#}
+{#			  <img src="../static/image/featurporch.jpg" alt="">#}
+{#			</div>#}
+{#		  </div>#}
+{##}
+{#		  <div class="card">#}
+{#			<div class="product-left">#}
+{#			  <div class="headerp">#}
+{#				<h1>Porshe 911</h1> <!--Brand and Model-->#}
+{#			  </div>#}
+{#			  <div class="product-main">#}
+{#				<div class="focus"> </div>#}
+{#			  </div>#}
+{#			  <div class="product-details">#}
+{#				<div class="product-total">#}
+{#				  <h3>Price/Day: 13 $</h3> <!--Price-->#}
+{#				  <h3>Color: Cyan</h3>  <!--Brand and Model-->#}
+{#					#}
+{#				</div>#}
+{#			  </div>#}
+{#			  <div class="product-btns">#}
+{#				<a href="#" class="product-add">RENT CAR</a>#}
+{#			  </div>#}
+{#			</div>#}
+{#			<div class="product-right">#}
+{#			  <img src="../static/image/featurporch.jpg" alt="">#}
+{#			</div>#}
+{#		  </div>#}
+{##}
+{#		  <div class="card">#}
+{#			<div class="product-left">#}
+{#			  <div class="headerp">#}
+{#				<h1>Porshe 911</h1> <!--Brand and Model-->#}
+{#			  </div>#}
+{#			  <div class="product-main">#}
+{#				<div class="focus"> </div>#}
+{#			  </div>#}
+{#			  <div class="product-details">#}
+{#				<div class="product-total">#}
+{#				  <h3>Price/Day: 13 $</h3> <!--Price-->#}
+{#				  <h3>Color: Cyan</h3>  <!--Brand and Model-->#}
+{#					#}
+{#				</div>#}
+{#			  </div>#}
+{#			  <div class="product-btns">#}
+{#				<a href="#" class="product-add">RENT CAR</a>#}
+{#			  </div>#}
+{#			</div>#}
+{#			<div class="product-right">#}
+{#			  <img src="../static/image/featurporch.jpg" alt="">#}
+{#			</div>#}
+{#		  </div>#}

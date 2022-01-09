@@ -91,4 +91,7 @@ get_reserved_cars_between_date = "select distinct C.plateid from car as C join r
 
 
 # car:
-all_cars = "SELECT * FROM car NATURAL JOIN car_image where officeloc = %s"
+all_cars = "SELECT car.plateid, extract(year from car.modelyr) as year, brand, model, color, active, rate , " \
+                   "officeloc, " \
+                   "encode(car_image.image,'hex') img " \
+                   "FROM car natural join car_image WHERE officeloc = %s "

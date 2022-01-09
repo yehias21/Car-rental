@@ -17,10 +17,6 @@ def create_app():
         if "username" in session:
             return redirect(url_for('home'))
         return render_template("index.html")
-    @app.route("/redirect/<page>")
-    @login_required
-    def routing(page):
-        return render_template(f'{page}')
     @app.route('/logout')
     def logout():
         if "username" in session:

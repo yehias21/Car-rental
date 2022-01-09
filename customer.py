@@ -1,4 +1,6 @@
-from flask import (Blueprint, flash, render_template, request, url_for, redirect, session)
+import base64
+
+from flask import (Blueprint, flash, render_template, request, url_for, redirect, session, jsonify)
 from auth import login_required
 import psycopg2
 import datetime
@@ -14,7 +16,13 @@ db = sql.db
 @bp.route('/customer_home', methods=["GET", "POST"])
 @login_required(role='customer')
 def home():
-    return render_template("Customer.html")
+    db.execute(sql.all_cars, (session['country'],))
+    cars = db.fetchall()
+    for car in cars:
+        #print(car['img'])
+        car['img'] = bytestoimg((car['img']))
+        print(car['img'])
+    return render_template("Customer.html", cars=cars)
 
 
 @bp.route('/customer_search', methods=["GET", "POST"])
@@ -96,3 +104,7 @@ def view_reservations():
     reservations = db.fetchall()
     return render_template("customer/reservations.html", reservations=reservations)
 
+def bytestoimg(data):
+    base = "data:image/jpeg;base64,"
+    base += base64.b64encode(bytes.fromhex(data)).decode()
+    return base

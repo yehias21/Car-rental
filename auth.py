@@ -64,7 +64,7 @@ def login():
             session['country'] = user.get('country')
             return jsonify(ok=1)
         return jsonify(ok=0)
-    return render_template("auth/login.html")
+    return render_template("login.html")
 
 
 @bp.route("/register", methods=["GET", "POST"])
@@ -88,7 +88,7 @@ def register():
         except psycopg2.IntegrityError:
             db.execute("ROLLBACK")
             return jsonify(ok=0)
-    return render_template("auth/register.html")
+    return render_template("register.html")
 
 
 @bp.route("/home", methods=["GET", "POST"])
