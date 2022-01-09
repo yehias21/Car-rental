@@ -53,15 +53,21 @@ customer_reservations = "select reserve_date ,pickup_date , return_date , bill ,
                         "model) car_model " \
                         "from (reservation join car c on c.plateid = reservation.carid) rc join customer cust on " \
                         "rc.custid = cust.id  " \
-                        "where custid = %s or cust.username = %s or cust.email = %s"
+                        " where cust.username = %s or cust.email = %s"
 
 customer_payments = "select carid,reserve_date,amount,date " \
                     "from (payments join customer c on c.id = payments.custid) as cp " \
-                    "join reservation r on cp.rid = r.rid where custid = %s"
+                    "join reservation r on cp.rid = r.rid where cp.username = %s"
 
 car_status = "with out_of_service as(select plateid from status where %s::date between out_start and out_end) " \
              "select plateid,'active' as status from car where car.plateid not in (select * from out_of_service) " \
              "union (select plateid,'false' from out_of_service)"
+
+available_cars =  "with busy as " \
+"(select distinct C.plateid  from car as C join reservation as R on C.plateid = R.carid where %s between R.pickup_date and R.return_date " \
+"or R.pickup_date between %s and %s) " \
+"select plateid,'free' as state from car where car.plateid not in (select * from busy) " \
+"union (select plateid,'busy' from busy)"
 
 
 # customer:

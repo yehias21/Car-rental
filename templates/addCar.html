@@ -7,7 +7,6 @@
     <link rel="stylesheet" type="text/css" href="../static/source/bootstrap-3.3.6-dist/css/bootstrap.css">
     <link rel="stylesheet" type="text/css" href="../static/source/font-awesome-4.5.0/css/font-awesome.css">
     <link rel="stylesheet" type="text/css" href="../static/style/mystyle.css">
-    <script src="{{ url_for('static', filename='register.js') }}"></script>
 
 </head>
 
@@ -41,7 +40,7 @@
             <div class="card-body p-5" style="max-width: 400px; margin: 50px 450px">
                                 <h2 class="text-uppercase text-center mb-5" style="font-family: bebas">Register</h2>
 
-                                <form id="registerForm" enctype="multipart/form-data">
+                                <form action="/admin/register_car" id="registerForm" enctype="multipart/form-data" method="post">
 
 
                                     <div class="form-outline mb-4">
@@ -64,13 +63,13 @@
 
                                     <div class="form-outline mb-4">
                                         <label class="form-label" for="model">Car Model</label>
-                                        <input type="email" id="model" placeholder="Car Model"
+                                        <input type="text" id="model" placeholder="Car Model"
                                             class="form-control form-control-lg" name="model" required>
                                     </div>
 
                                     <div class="form-outline mb-4">
                                         <label class="form-label" for="pass">Car Color</label>
-                                        <input type="password" id="color"
+                                        <input type="text" id="color"
                                             class="form-control form-control-lg" name="color" required>
                                     </div>
 
@@ -80,11 +79,6 @@
                                             class="form-control form-control-lg" name="rate" required>
                                     </div>
 
-                                    <div class="form-outline mb-4">
-                                        <label class="form-label" for="country">Country</label>
-                                        <input type="text" id="country" placeholder="Egypt"
-                                            class="form-control form-control-lg" name="country" required>
-                                    </div>
 
                                        <div class="form-outline mb-4">
                                         <label class="form-label" for="form3Example4cg">Office Location</label>

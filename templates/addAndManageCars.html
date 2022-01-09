@@ -7,10 +7,7 @@
 	<link rel="stylesheet" type="text/css" href="../static/source/font-awesome-4.5.0/css/font-awesome.css">
 	<link rel="stylesheet" type="text/css" href="../static/style/mystyle.css">
 </head>
-<script>
-    live_search = function (){
-        form = document.querySelector("#navbarmidle > form")
-    }
+<script src="/static/admin.js">
 </script>
 <body>
 <!-- Header -->
@@ -55,7 +52,7 @@
 			</div>
 <div class="collapse navbar-collapse" id="navbarmidle">
 		  <div class="searchtxt"> </div>
-				<form action="/admin/search_car" class="navbar-form navbar-left searchformmargin" method="post" oninput="setTimeout(live_search,3500)" >
+				<form action="/admin/search_car" class="navbar-form navbar-left searchformmargin" method="post" oninput="setTimeout(live_search,1000)" >
 					<div class="form-group">
 						<input type="text" class="form-control searchform" name="plateID" placeholder="Car Plate">
                         <input type="text" class="form-control searchform" name="brand" placeholder="Car Brand">
@@ -76,7 +73,39 @@
 </div>
 <!-- ____________________Featured Section ______________________________--> 
  <div  id="carbody">
-    {{ carBody }}
+    	<div class="wrapper">
+	   {% for car in cars %}
+
+                <div class="card">
+                    <form action="/admin/car/{{ car['plateid'] }}" class="card" method="get">
+                          <div class="product-left">
+                                <div class="headerp">
+                                    <h1>{{ car['brand'] + " " + car['model'] }}</h1> <!--Brand and Model-->
+                                </div>
+                                <div class="product-main">
+                                    <div class="focus"> </div>
+                                </div>
+                                <div class="product-details">
+                                      <div class="product-total">
+                                          <h3>Plate: {{ car['plateid'] }}</h3>
+                                        <h3>Price/Day: {{ car['rate'] }}</h3>
+                                        <h3>Color: {{ car['color'] }}</h3>
+                                        <h3>{{ car['active'] }}</h3>
+                                        <h3>Location: {{ car['officeloc'] }}</h3>
+
+                                      </div>
+                                </div>
+                                        <div class="product-btns">
+                                          <button  type="submit" class="product-add"> Car Details </button>
+                                        </div>
+                          </div>
+                          <div class="product-right">
+                                <img src="{{ car['img'] }}" alt="Car here" >
+                          </div>
+                    </form>
+                </div>
+        {% endfor %}
+</div>
 </div>
 
 	<!-- ______________________________________________________Bottom Menu ______________________________-->

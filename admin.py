@@ -13,7 +13,7 @@ db = sql.db
 
 
 @bp.route('/admin_home', methods=["GET", "POST"])
-# @login_required(role='admin')
+@login_required(role='admin')
 def home():
     if request.method == "GET":
         db.execute(sql.all_cars_admin)
@@ -21,8 +21,7 @@ def home():
         for car in cars:
             car['img'] = bytestoimg((car['img']))
             car['active'] = 'Active' if car['active'] else 'Out of Service'
-        carBody = render_template("carbody.html",cars=cars)
-        return render_template("addAndManageCars.html", carBody=carBody)
+        return render_template("addAndManageCars.html", cars=cars)
     return redirect(url_for('admin.view_car', plateid=request.form['CarPlate']))
 
 
@@ -33,9 +32,8 @@ def records():
 
 
 @bp.route("/register_car", methods=["GET", "POST"])
-# @login_required(role='admin')
+@login_required(role='admin')
 def register_car():
-    print("here")
     if request.method == 'POST':
         image = request.files['image'].read()
         content = request.form
@@ -53,11 +51,12 @@ def register_car():
             db.execute(sql.car_image_register, (plateID, image))
             conn.commit()
         except psycopg2.IntegrityError:
+            print('fail')
             error = f"Car {plateID} is already registered"
             db.execute("ROLLBACK")
             flash(error)
         else:
-            return redirect(url_for("admin"))
+            return redirect(url_for("admin.home"))
     return render_template('addCar.html')
 
 
@@ -65,12 +64,12 @@ def register_car():
 @login_required(role='admin')
 def search_car():
     if request.method == 'POST':
-        content = request.form
+        content = request.json
         print(content)
         plateID = content.get('plateID')
         year = content.get('modelYear')
         print(year)
-        year = 1970 if year is '' else year
+        year = 1970 if year == '' else year
         year = datetime.date(int(year), 1, 1)
         brand = content.get('brand')
         model = content.get('model')
@@ -89,9 +88,8 @@ def search_car():
         for car in cars:
             car['img'] = bytestoimg((car['img']))
             car['active'] = 'Active' if car['active'] else 'Out of Service'
-        print(cars)
-        return render_template("carbody.html", cars=cars)
-        # return render_template('admin/')
+        new_cards = render_template("carbody.html", cars=cars)
+        return jsonify(new=new_cards)
 
 
 @bp.route('/car/<string:plateid>', methods=['GET', 'POST'])
@@ -139,7 +137,15 @@ def reservations():
     end = content['end_date']
     db.execute(sql.all_reservations, (start, end))
     results = db.fetchall()
-    return jsonify(results=results, size=len(results))
+    for result in results:
+        result['reserve_date'] = str(result['reserve_date'])
+        result['pickup_date'] = str(result['pickup_date'])
+        result['return_date'] = str(result['return_date'])
+    report = render_template('Reports_show.html', title=[], kind='Reservations',
+                             headings=['Reserve Date', 'Pickup Date'
+                                 , 'Return Date', 'Cutomer Name', 'PlateID', 'Bill', 'Paid'],
+                             data=results)
+    return jsonify(report=report)
 
 
 @bp.route('/reports/car_reservations', methods=["POST"])
@@ -150,10 +156,21 @@ def car_reservations():
     end = content['end_date']
     car = content['car']
     db.execute(sql.car_search_plate, (car,))
-    car = db.fetchone
-    db.execute(sql.all_reservations, (car, start, end))
+    car = db.fetchone()
+    car['img'] = ''
+    car['active'] = 'Active' if car['active'] else 'Out of Service'
+    car = [car['plateid'], car['brand'], car['model'], int(car['year']), car['color'], car['active'], car['rate'],
+           car['officeloc']]
+    db.execute(sql.car_reservations_date, (content['car'], start, end))
     results = db.fetchall()
-    return jsonify(car=car, results=results, size=len(results))
+    results = [(r['reserve_date'], r['pickup_date'], r['return_date'], r['bill'], r['paid']) for r in results]
+    print(results)
+    for result in results:
+        for entry in result:
+            entry = str(entry)
+    report = render_template('Reports_show.html', kind='Car Reservations', title=car,
+                             headings=['Reserve Date', 'Pickup Date', 'Return Date', 'Bill', 'Paid'], data=results)
+    return jsonify(report=report)
 
 
 @bp.route('/reports/customer_reservations', methods=["POST"])
@@ -162,10 +179,19 @@ def customer_reservations():
     content = request.json
     customer = content['customer']
     db.execute(sql.search_customer, (customer,))
-    customer = db.fetchone
-    db.execute(sql.customer_reservations, (customer, customer, customer))
+    customer = db.fetchone()
+    customer = [customer['fname'], customer['lname'], customer['email'], customer['country'], customer['city'],
+                customer['address']]
+    db.execute(sql.customer_reservations, (content['customer'], content['customer'],))
     results = db.fetchall()
-    return jsonify(customer=customer, results=results, size=len(results))
+    for result in results:
+        result['reserve_date'] = str(result['reserve_date'])
+        result['pickup_date'] = str(result['pickup_date'])
+        result['return_date'] = str(result['return_date'])
+
+    results = [(r['reserve_date'],r['pickup_date'],r['return_date'],r['bill'],r['paid'],r['carid'],r['car_model']) for r in results]
+    report = render_template('Reports_show.html',title = customer,headings=['Reseve Date','Pickup Date','Return Date','Bill','Paid','Car ID','Car'],kind='Customer Reservations',data=results)
+    return jsonify(report=report)
 
 
 @bp.route('/reports/payments', methods=["POST"])
@@ -174,10 +200,18 @@ def customer_payments():
     content = request.json
     customer = content['customer']
     db.execute(sql.search_customer, (customer,))
-    customer = db.fetchone
-    db.execute(sql.customer_payments, (customer,))
+    customer = db.fetchone()
+    print(customer)
+    customer = [customer['fname'],customer['lname'],customer['email'],customer['country'],customer['city'],customer['address']]
+    db.execute(sql.customer_payments, (content['customer'],))
     results = db.fetchall()
-    return jsonify(customer=customer, results=results, size=len(results))
+    results = [(r['carid'],r['reserve_date'],r['amount'],r['date']) for r in results]
+    print(results)
+    for result in results:
+        for entry in result:
+            entry = str(entry)
+    report = render_template('Reports_show.html',title=customer, kind='Customer Payments', headings=['Plate ID', 'Reserve Date','Amount','Payment Date'], data=results)
+    return jsonify(report=report)
 
 
 @bp.route('/reports/status', methods=['POST'])
@@ -185,10 +219,28 @@ def customer_payments():
 def cars_status():
     content = request.json
     date = content['date']
-    db.execute(sql.car_status, date)
+    db.execute(sql.car_status, (date,))
+
     results = db.fetchall()
+    print(results)
+
     results = [(r['plateid'], r['status']) for r in results]
-    return jsonify(results=results, size=len(results))
+    report = render_template('Reports_show.html', title=[], kind='Car Status', headings=['Plate ID', 'Status'],
+                             data=results)
+    return jsonify(report=report)
+
+
+@bp.route('/reports/available_cars', methods=['POST'])
+@login_required(role='admin')
+def available_cars():
+    content = request.json
+    date = content['date']
+    db.execute(sql.available_cars, (date, date, date))
+    results = db.fetchall()
+    results = [(r['plateid'], r['state']) for r in results]
+    report = render_template('Reports_show.html', title=[], kind='Car Availability', headings=['Plate ID', 'State'],
+                             data=results)
+    return jsonify(report=report)
 
 
 def bytestoimg(data):
