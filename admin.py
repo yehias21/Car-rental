@@ -1,3 +1,4 @@
+import base64
 import datetime
 
 import flask
@@ -10,18 +11,30 @@ bp = Blueprint('admin', __name__, url_prefix='/admin')
 conn = sql.conn
 db = sql.db
 
+
 @bp.route('/admin_home', methods=["GET", "POST"])
-@login_required(role='admin')
+# @login_required(role='admin')
 def home():
-    return render_template("addAndManageCars.html")
+    if request.method == "GET":
+        db.execute(sql.all_cars_admin)
+        cars = db.fetchall()
+        for car in cars:
+            car['img'] = bytestoimg((car['img']))
+            car['active'] = 'Active' if car['active'] else 'Out of Service'
+        return render_template("addAndManageCars.html", cars=cars)
+    return redirect(url_for('admin.view_car', plateid=request.form['CarPlate']))
+
+
 @bp.route('/Reports', methods=["GET", "POST"])
 @login_required(role='admin')
 def records():
     return render_template("Reports.html")
 
+
 @bp.route("/register_car", methods=["GET", "POST"])
-@login_required(role='admin')
+# @login_required(role='admin')
 def register_car():
+    print("here")
     if request.method == 'POST':
         image = request.files['image'].read()
         content = request.form
@@ -44,7 +57,7 @@ def register_car():
             flash(error)
         else:
             return redirect(url_for("admin"))
-    return render_template('addAndManageCars.html')
+    return render_template('addCar.html')
 
 
 @bp.route("/search_car", methods=["GET", "POST"])
@@ -70,11 +83,13 @@ def search_car():
 @bp.route('/car/<string:plateid>', methods=['GET', 'POST'])
 @login_required(role='admin')
 def view_car(plateid):
+    print(plateid)
     db.execute(sql.car_search_plate, (plateid,))
-    car = db.fetchone
-    content = request.json
+    car = db.fetchone()
+    content = request.form
     if request.method == 'POST':
-        new_state = content['active']
+        print("hhhhhhh")
+        new_state = content['active'] == 'True'
         new_rate = content['rate']
         if new_rate != car['rate']:
             try:
@@ -84,17 +99,22 @@ def view_car(plateid):
                 db.execute("ROLLBACK")
                 # TODO THROW ERROR
         try:
-            if (new_state, content['state']) == (False, True):
+            if (new_state, car['active']) == (False, True):
                 db.execute(sql.update_car_state, (new_state, plateid))
                 db.execute(sql.car_out_service, (plateid, str(datetime.date.today())))
                 conn.commit()
-            elif (new_state, content['state']) == (True, False):
+            elif (new_state, car['active']) == (True, False):
                 db.execute(sql.update_car_state, (new_state, plateid))
                 db.execute(sql.car_in_service, (str(datetime.date.today()), plateid))
                 conn.commit()
         except psycopg2.IntegrityError:
             db.execute("ROLLBACK")
             # TODO THROW ERROR
+    db.execute(sql.car_search_plate, (plateid,))
+    car = db.fetchone()
+    car['img'] = bytestoimg((car['img']))
+    car['active'] = 'Active' if car['active'] else 'Out of Service'
+    return render_template('carDetails.html', car=car)
 
 
 @bp.route('/reports/reservations', methods=["POST"])
@@ -157,3 +177,7 @@ def cars_status():
     return jsonify(results=results, size=len(results))
 
 
+def bytestoimg(data):
+    base = "data:image/jpeg;base64,"
+    base += base64.b64encode(bytes.fromhex(data)).decode()
+    return base

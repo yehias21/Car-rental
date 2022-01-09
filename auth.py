@@ -34,10 +34,12 @@ db = sql.db
 
 @bp.before_app_request
 def load_logged_in_user():
+    print(session)
     username = session.get('username')
     if username is None:
         g.user = None
     else:
+        print(session)
         db.execute(sql.login_query(session['role']), (username,))
         g.user = db.fetchone()
 

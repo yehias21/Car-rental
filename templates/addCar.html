@@ -1,0 +1,121 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Register</title>
+    <link rel="stylesheet" type="text/css" href="../static/source/bootstrap-3.3.6-dist/css/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="../static/source/font-awesome-4.5.0/css/font-awesome.css">
+    <link rel="stylesheet" type="text/css" href="../static/style/mystyle.css">
+    <script src="{{ url_for('static', filename='register.js') }}"></script>
+
+</head>
+
+<body>
+    <!-- Header -->
+    <div class="allcontain">
+        <div class="header" style="padding: 2px">
+            <ul class="socialicon">
+                <li><a href="/home" class="logreg">CLASSICAR</a></li>
+            </ul>
+
+        </div>
+        <!-- Navbar Up -->
+        <nav class="topnavbar navbar-default topnav">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed toggle-costume" data-toggle="collapse"
+                        data-target="#upmenu" aria-expanded="false">
+                        <span class="sr-only"> Toggle navigaion</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <!-- <a class="navbar-brand logo" href="#"><img src="image/logo1.png" alt="logo"></a> -->
+                </div>
+            </div>
+        </nav>
+    </div>
+    <!--_______________________________________ Search__________________________________ -->
+        <div class="mask d-flex align-items-center h-100">
+            <div class="card-body p-5" style="max-width: 400px; margin: 50px 450px">
+                                <h2 class="text-uppercase text-center mb-5" style="font-family: bebas">Register</h2>
+
+                                <form id="registerForm" enctype="multipart/form-data">
+
+
+                                    <div class="form-outline mb-4">
+                                        <label class="form-label" for="plateID">Plate ID</label>
+                                        <input type="text" id="plateid" placeholder="Car Plate"
+                                            class="form-control form-control-lg" name="plateID" required>
+                                    </div>
+
+                                    <div class="form-outline mb-4">
+                                        <label class="form-label" for="modelYear">Model Year</label>
+                                        <input type="number" id="modelYear" placeholder="Car Model Year"
+                                            class="form-control form-control-lg"  name="modelYear" min="1950" max="2022" step="1" required>
+                                    </div>
+
+                                    <div class="form-outline mb-4">
+                                        <label class="form-label" for="brand">Car Brand</label>
+                                        <input type="text" id="brand" placeholder="Car Brand"
+                                            class="form-control form-control-lg" name="brand" required>
+                                    </div>
+
+                                    <div class="form-outline mb-4">
+                                        <label class="form-label" for="model">Car Model</label>
+                                        <input type="email" id="model" placeholder="Car Model"
+                                            class="form-control form-control-lg" name="model" required>
+                                    </div>
+
+                                    <div class="form-outline mb-4">
+                                        <label class="form-label" for="pass">Car Color</label>
+                                        <input type="password" id="color"
+                                            class="form-control form-control-lg" name="color" required>
+                                    </div>
+
+                                    <div class="form-outline mb-4">
+                                        <label class="form-label" for="rate">Car Rate</label>
+                                        <input type="number" id="rate"
+                                            class="form-control form-control-lg" name="rate" required>
+                                    </div>
+
+                                    <div class="form-outline mb-4">
+                                        <label class="form-label" for="country">Country</label>
+                                        <input type="text" id="country" placeholder="Egypt"
+                                            class="form-control form-control-lg" name="country" required>
+                                    </div>
+
+                                       <div class="form-outline mb-4">
+                                        <label class="form-label" for="form3Example4cg">Office Location</label>
+                                        <input type="text" id="form3Example4cg" min=1  class="form-control form-control-lg" name="officeloc" required>
+                                    </div>
+
+                                    <div class="form-outline mb-4">
+                                        <label class="form-label" for="form3Example4cdg">Car Image</label>
+                                        <input type="file" id="form3Example4cdg"  class="form-control form-control-lg" name="image" required>
+                                    </div>
+                            <div class="d-flex justify-content-center">
+                                        <button type="submit" class="btn btn-success btn-block btn-lg gradient-custom-4 text-body" name="register">Register</button>
+                                    </div>
+
+                                </form>
+
+                            </div>
+        </div>
+    </section>
+    <div class="allcontain">
+        <div id="carousel-up" class="carousel slide" data-ride="carousel"> </div>
+    </div>
+
+    <!-- ______________________________________________________Bottom Menu ______________________________-->
+    <div class="bottommenu">
+
+        <p>"<em style="color:#C59E47 ">Quality</em> never goes out of style" <br>
+        </p>
+        <img src="../static/image/line.png" alt="line"> <br>
+        <div class="footer"> </div>
+    </div>
+</body>
+
+</html>

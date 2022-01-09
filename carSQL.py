@@ -95,3 +95,8 @@ all_cars = "SELECT car.plateid, extract(year from car.modelyr) as year, brand, m
                    "officeloc, " \
                    "encode(car_image.image,'hex') img " \
                    "FROM car natural join car_image WHERE officeloc = %s "
+
+all_cars_admin = "SELECT car.plateid, extract(year from car.modelyr) as year, brand, model, color, active, rate , " \
+                   "officeloc, " \
+                   "encode(car_image.image,'hex') img " \
+                   "FROM car natural join car_image"
