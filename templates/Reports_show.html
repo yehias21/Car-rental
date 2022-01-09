@@ -1,0 +1,77 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Reports</title>
+	<link rel="stylesheet" type="text/css" href="../static/source/bootstrap-3.3.6-dist/css/bootstrap.css">
+	<link rel="stylesheet" type="text/css" href="../static/source/font-awesome-4.5.0/css/font-awesome.css">
+	<link rel="stylesheet" type="text/css" href="../static/style/mystyle.css">
+    <script src="{{ url_for('static', filename='Reports.js') }}"></script>
+    <link rel="stylesheet" href="/static/Reports_show.css">
+</head>
+<body>
+<!-- Header -->
+<div class="allcontain">
+	<div class="header" style="padding: 2px">
+			<ul class="socialicon">
+				<li><a href="/home" class="logreg">CLASSICAR</a></li>
+			</ul>
+			<ul class="logreg">
+				<li><a href="/home">Manage Cars </a> </li>
+				<li><a href="/logout"><span class="register">Logout</span></a></li>
+			</ul>
+	</div>
+	<!-- Navbar Up -->
+
+</div>
+<!--_______________________________________ Search__________________________________ -->
+<div class="allcontain">
+	<div id="carousel-up" class="carousel slide" data-ride="carousel">
+		<h2 align="center" style="font-family: bebas">RESULTS OF {{kind}}!</h2>
+  </div>
+</div>
+<table class="table">
+     <tr class="table__header">
+        {% for header in title %}
+        <th class="table__cell">{{ header }}</th>
+        {% endfor %}
+    </tr>
+</table>
+<table class="table">
+    <tr class="table__header">
+        {% for header in headings %}
+        <th class="table__cell">{{ header }}</th>
+        {% endfor %}
+    </tr>
+    {% for row in data %}
+    <tr class="table__row">
+        {% for cell in row %}
+        <td class="table__cell">
+            {{ cell }}
+        </td>
+        {% endfor %}
+    </tr>
+    {% endfor %}
+</table>
+<div class="align-items-center">
+    <div class="card-body p-5" style="max-width: 400px; margin: 50px 450px">
+
+
+    </div>
+</div>
+</section>
+<div class="allcontain">
+    <div id="carousel-up" class="carousel slide" data-ride="carousel"></div>
+</div>
+
+	<!-- ______________________________________________________Bottom Menu ______________________________-->
+	<div class="bottommenu">
+
+		<p>"<em style="color:#C59E47 ">Quality</em> never goes out of style" <br>
+			</p>
+		 <img src="../static/image/line.png" alt="line"> <br>
+			<div class="footer"> </div>
+	</div>
+<script src="../static/customer.js" type="text/javascript"></script>
+</body>
+</html>

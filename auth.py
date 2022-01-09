@@ -38,7 +38,8 @@ def load_logged_in_user():
     if username is None:
         g.user = None
     else:
-        db.execute(sql.login_query(session['role']), (username,))
+        role = (session['role'])
+        db.execute(sql.login_query(tablename=role), (username,))
         g.user = db.fetchone()
 
 

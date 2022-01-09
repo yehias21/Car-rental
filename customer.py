@@ -34,6 +34,7 @@ def home():
         car['img'] = bytestoimg((car['img']))
     return render_template("Customer.html", cars=cars)
 
+
 # todo:optimize search car
 @bp.route('/customer_search', methods=["GET", "POST"])
 @login_required(role='customer')

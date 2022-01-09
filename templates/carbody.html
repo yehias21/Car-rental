@@ -1,0 +1,33 @@
+	<div class="wrapper">
+	   {% for car in cars %}
+
+                <div class="card">
+                    <form action="/admin/car/{{ car['plateid'] }}" class="card" method="get">
+                          <div class="product-left">
+                                <div class="headerp">
+                                    <h1>{{ car['brand'] + " " + car['model'] }}</h1> <!--Brand and Model-->
+                                </div>
+                                <div class="product-main">
+                                    <div class="focus"> </div>
+                                </div>
+                                <div class="product-details">
+                                      <div class="product-total">
+                                          <h3>Plate: {{ car['plateid'] }}</h3>
+                                        <h3>Price/Day: {{ car['rate'] }}</h3>
+                                        <h3>Color: {{ car['color'] }}</h3>
+                                        <h3>{{ car['active'] }}</h3>
+                                        <h3>Location: {{ car['officeloc'] }}</h3>
+
+                                      </div>
+                                </div>
+                                        <div class="product-btns">
+                                          <button  type="submit" class="product-add"> Car Details </button>
+                                        </div>
+                          </div>
+                          <div class="product-right">
+                                <img src="{{ car['img'] }}" alt="Car here" >
+                          </div>
+                    </form>
+                </div>
+        {% endfor %}
+</div>

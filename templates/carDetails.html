@@ -7,8 +7,6 @@
 	<link rel="stylesheet" type="text/css" href="../static/source/font-awesome-4.5.0/css/font-awesome.css">
 	<link rel="stylesheet" type="text/css" href="../static/style/mystyle.css">
 </head>
-<script src="/static/admin.js">
-</script>
 <body>
 <!-- Header -->
 <div class="allcontain">
@@ -32,52 +30,15 @@
 					<span class="icon-bar"></span>
 				</button>
 				<!-- <a class="navbar-brand logo" href="#"><img src="image/logo1.png" alt="logo"></a> -->
-			</div>	 
+			</div>
 		</div>
 	</nav>
 </div>
-<!--_______________________________________ Search__________________________________ -->
-<div class="allcontain">
-	<div id="carousel-up" class="carousel slide" data-ride="carousel">
-		<h2 align="center" style="font-family: bebas">Adminstration&nbsp;</h2>
-		<nav class="navbar navbar-default midle-nav">
-<div class="navbar-header">
-		  <button type="button" class="navbar-toggle collapsed textcostume" data-toggle="collapse" data-target="#navbarmidle" aria-expanded="false">
-						<h1>SEARCH TEXT</h1>
-					<span class="sr-only">Toggle navigation</span>
-					<span class="icon-bar"></span>
-					<span class="icon-bar"></span>
-					<span class="icon-bar"></span>
-				</button>
-			</div>
-<div class="collapse navbar-collapse" id="navbarmidle">
-		  <div class="searchtxt"> </div>
-				<form action="/admin/search_car" class="navbar-form navbar-left searchformmargin" method="post" oninput="setTimeout(live_search,1000)" >
-					<div class="form-group">
-						<input type="text" class="form-control searchform" name="plateID" placeholder="Car Plate">
-                        <input type="text" class="form-control searchform" name="brand" placeholder="Car Brand">
-                        <input type="text" class="form-control searchform" name="model" placeholder="Car Model">
-                        <input type="number" min = 1950 class="form-control searchform" name="modelYear" placeholder="Card Model Year">
-                        <input type="text" class="form-control searchform" name="color" placeholder="Car Color">
-                        <input type="text" class="form-control searchform" name="active" placeholder="Car Status">
-                        <input type="text" class="form-control searchform" name="rate" placeholder="Rate">
-                        <input type="text" class="form-control searchform" name="officeloc" placeholder="Office Location">
-                        <button class="searchbutton" type="submit" style="margin: 10px;"><span class="glyphicon glyphicon-search "></span></button>
-                        <a href="/admin/register_car" class="buttonito">Add Car</a>
-						
-				  </div>
-				</form>
-			</div>
-		</nav>
-	</div>
-</div>
-<!-- ____________________Featured Section ______________________________--> 
- <div  id="carbody">
-    	<div class="wrapper">
-	   {% for car in cars %}
+
+	<div class="wrapper">
 
                 <div class="card">
-                    <form action="/admin/car/{{ car['plateid'] }}" class="card" method="get">
+                    <form action="/admin/car/{{ car['plateid'] }}" class="card" method="post">
                           <div class="product-left">
                                 <div class="headerp">
                                     <h1>{{ car['brand'] + " " + car['model'] }}</h1> <!--Brand and Model-->
@@ -92,11 +53,19 @@
                                         <h3>Color: {{ car['color'] }}</h3>
                                         <h3>{{ car['active'] }}</h3>
                                         <h3>Location: {{ car['officeloc'] }}</h3>
-
                                       </div>
+                                     <div class="form-outline mb-4">
+                                        <label class="form-label" for="rate">New Rate</label>
+                                        <input type="number" min=1 id="rate" class="form-control form-control-lg" name="rate" value="{{ car['rate'] }}" placeholder="{{ car['rate'] }}" ><br>
+                                         <input type="radio" id="active" name="active" value='True' required>
+                                         <label for="admin">Active</label><br>
+                                        <input type="radio" id="outofservice" name="active" value='False' required>
+                                        <label for="customer">Out of Service</label><br>
+                                    </div>
+
                                 </div>
                                         <div class="product-btns">
-                                          <button  type="submit" class="product-add"> Car Details </button>
+                                          <button  type="submit" class="product-add"> Save Changes</button>
                                         </div>
                           </div>
                           <div class="product-right">
@@ -104,13 +73,11 @@
                           </div>
                     </form>
                 </div>
-        {% endfor %}
-</div>
 </div>
 
 	<!-- ______________________________________________________Bottom Menu ______________________________-->
 	<div class="bottommenu">
-		
+
 		<p>"<em style="color:#C59E47 ">Quality</em> never goes out of style" <br>
 			</p>
 		 <img src="../static/image/line.png" alt="line"> <br>
