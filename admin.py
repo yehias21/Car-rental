@@ -21,7 +21,8 @@ def home():
         for car in cars:
             car['img'] = bytestoimg((car['img']))
             car['active'] = 'Active' if car['active'] else 'Out of Service'
-        return render_template("addAndManageCars.html", cars=cars)
+        carBody = render_template("carbody.html",cars=cars)
+        return render_template("addAndManageCars.html", carBody=carBody)
     return redirect(url_for('admin.view_car', plateid=request.form['CarPlate']))
 
 
@@ -65,18 +66,31 @@ def register_car():
 def search_car():
     if request.method == 'POST':
         content = request.form
-        plateID = content['plateID']
-        year = content['modelYear']
+        print(content)
+        plateID = content.get('plateID')
+        year = content.get('modelYear')
+        print(year)
+        year = 1970 if year is '' else year
         year = datetime.date(int(year), 1, 1)
-        brand = content['brand']
-        model = content['model']
-        color = content['color']
-        active = content['active']
-        rate = content['rate']
-        officeloc = str.lower(content['officeloc'])
-        db.execute(sql.car_search, (plateID, year, brand, model, color, active, rate, officeloc))
+        brand = content.get('brand')
+        model = content.get('model')
+        color = content.get('color')
+        active = content.get('active')
+        rate = content.get('rate')
+        officeloc = content.get('officeloc')
+        officeloc = None if officeloc is None else str.lower(officeloc)
+        query = sql.car_search
+        inputs = (plateID, year, brand, model, color, rate, officeloc)
+        if active != '':
+            query += " or active = %s::bool"
+            inputs = (plateID, year, brand, model, color, rate, officeloc, active)
+        db.execute(query, inputs)
         cars = db.fetchall()
-        # TODO: Render returned cars somehow
+        for car in cars:
+            car['img'] = bytestoimg((car['img']))
+            car['active'] = 'Active' if car['active'] else 'Out of Service'
+        print(cars)
+        return render_template("carbody.html", cars=cars)
         # return render_template('admin/')
 
 
@@ -149,7 +163,7 @@ def customer_reservations():
     customer = content['customer']
     db.execute(sql.search_customer, (customer,))
     customer = db.fetchone
-    db.execute(sql.customer_reservations, (customer,))
+    db.execute(sql.customer_reservations, (customer, customer, customer))
     results = db.fetchall()
     return jsonify(customer=customer, results=results, size=len(results))
 

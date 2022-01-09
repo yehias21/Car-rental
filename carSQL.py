@@ -25,7 +25,7 @@ car_search = "SELECT car.plateid, extract(year from car.modelyr) as year, brand,
              "officeloc, " \
              "encode(car_image.image,'hex') img " \
              "FROM car natural join car_image WHERE " \
-             "plateid = %s or modelyr = %s or brand = %s or model=%s or color=%s or active = %s or rate = %s or " \
+             "plateid = %s or modelyr = %s::date or brand = %s or model=%s or color=%s or rate = %s or " \
              "officeloc = %s "
 
 car_search_plate = "SELECT car.plateid, extract(year from car.modelyr) as year, brand, model, color, active, rate , " \
@@ -51,7 +51,9 @@ car_reservations_date = "select reserve_date,pickup_date,return_date,bill,paid f
 
 customer_reservations = "select reserve_date ,pickup_date , return_date , bill ,paid , carid , concat(brand," \
                         "model) car_model " \
-                        "from reservation join car c on c.plateid = reservation.carid where custid = %s"
+                        "from (reservation join car c on c.plateid = reservation.carid) rc join customer cust on " \
+                        "rc.custid = cust.id  " \
+                        "where custid = %s or cust.username = %s or cust.email = %s"
 
 customer_payments = "select carid,reserve_date,amount,date " \
                     "from (payments join customer c on c.id = payments.custid) as cp " \
@@ -60,6 +62,7 @@ customer_payments = "select carid,reserve_date,amount,date " \
 car_status = "with out_of_service as(select plateid from status where %s::date between out_start and out_end) " \
              "select plateid,'active' as status from car where car.plateid not in (select * from out_of_service) " \
              "union (select plateid,'false' from out_of_service)"
+
 
 # customer:
 def search_car(form):
@@ -74,29 +77,30 @@ def search_car(form):
     if (model): where += f" model = '{model} 'and"
     if (color): where += f" color = '{color}' and"
     if (start_date): where += f"pickup_date not between " \
-                                              f"'{start_date}' and '{end_date}' and '{start_date}' not between " \
-                                              f"pickup_date and return_date and"
+                              f"'{start_date}' and '{end_date}' and '{start_date}' not between " \
+                              f"pickup_date and return_date and"
 
     query = "SELECT  brand,model,rate,extract(year from car.modelyr),encode(car_image.image,'hex') img " \
             "FROM car natural join car_image left join reservation on car.plateid=reservation.carid" \
             + where + " active=true and officeloc = " + f"'{location}'"
     return query
+
+
 car_reserve = "insert into reservation (custid, carid, reserve_date, pickup_date, return_date, bill, paid) values (%s, %s, %s, %s, %s, %s, %s)"
 submit_payment = "insert into payments (rid, custid, amount, date) values (%s, %s, %s, %s)"
 get_rid = "select rid from reservation where custid = %s and carid = %s and reserve_date = %s"
 get_car_rate = "select rate from car where plateid = %s"
 update_paid_car = "UPDATE reservation SET paid = True WHERE rid = %s"
 get_reserved_cars_between_date = "select distinct C.plateid from car as C join reservation as R on C.plateid = R.carid where %s " \
-                   "between R.pickup_date and R.return_date or R.pickup_date between %s and %s "
-
+                                 "between R.pickup_date and R.return_date or R.pickup_date between %s and %s "
 
 # car:
 all_cars = "SELECT car.plateid, extract(year from car.modelyr) as year, brand, model, color, active, rate , " \
-                   "officeloc, " \
-                   "encode(car_image.image,'hex') img " \
-                   "FROM car natural join car_image WHERE officeloc = %s "
+           "officeloc, " \
+           "encode(car_image.image,'hex') img " \
+           "FROM car natural join car_image WHERE officeloc = %s "
 
 all_cars_admin = "SELECT car.plateid, extract(year from car.modelyr) as year, brand, model, color, active, rate , " \
-                   "officeloc, " \
-                   "encode(car_image.image,'hex') img " \
-                   "FROM car natural join car_image"
+                 "officeloc, " \
+                 "encode(car_image.image,'hex') img " \
+                 "FROM car natural join car_image"

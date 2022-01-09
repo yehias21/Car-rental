@@ -7,6 +7,11 @@
 	<link rel="stylesheet" type="text/css" href="../static/source/font-awesome-4.5.0/css/font-awesome.css">
 	<link rel="stylesheet" type="text/css" href="../static/style/mystyle.css">
 </head>
+<script>
+    live_search = function (){
+        form = document.querySelector("#navbarmidle > form")
+    }
+</script>
 <body>
 <!-- Header -->
 <div class="allcontain">
@@ -37,7 +42,7 @@
 <!--_______________________________________ Search__________________________________ -->
 <div class="allcontain">
 	<div id="carousel-up" class="carousel slide" data-ride="carousel">
-		<h2 align="center" style="font-family: bebas">Add And Manage Cars&nbsp;</h2>
+		<h2 align="center" style="font-family: bebas">Adminstration&nbsp;</h2>
 		<nav class="navbar navbar-default midle-nav">
 <div class="navbar-header">
 		  <button type="button" class="navbar-toggle collapsed textcostume" data-toggle="collapse" data-target="#navbarmidle" aria-expanded="false">
@@ -50,9 +55,16 @@
 			</div>
 <div class="collapse navbar-collapse" id="navbarmidle">
 		  <div class="searchtxt"> </div>
-				<form action="/admin/admin_home" class="navbar-form navbar-left searchformmargin" method="post">
+				<form action="/admin/search_car" class="navbar-form navbar-left searchformmargin" method="post" oninput="setTimeout(live_search,3500)" >
 					<div class="form-group">
-						<input type="text" class="form-control searchform" name="CarPlate" placeholder="Card Plate">
+						<input type="text" class="form-control searchform" name="plateID" placeholder="Car Plate">
+                        <input type="text" class="form-control searchform" name="brand" placeholder="Car Brand">
+                        <input type="text" class="form-control searchform" name="model" placeholder="Car Model">
+                        <input type="number" min = 1950 class="form-control searchform" name="modelYear" placeholder="Card Model Year">
+                        <input type="text" class="form-control searchform" name="color" placeholder="Car Color">
+                        <input type="text" class="form-control searchform" name="active" placeholder="Car Status">
+                        <input type="text" class="form-control searchform" name="rate" placeholder="Rate">
+                        <input type="text" class="form-control searchform" name="officeloc" placeholder="Office Location">
                         <button class="searchbutton" type="submit" style="margin: 10px;"><span class="glyphicon glyphicon-search "></span></button>
                         <a href="/admin/register_car" class="buttonito">Add Car</a>
 						
@@ -63,39 +75,8 @@
 	</div>
 </div>
 <!-- ____________________Featured Section ______________________________--> 
-
-	<div class="wrapper">
-	   {% for car in cars %}
-
-                <div class="card">
-                    <form action="/admin/car/{{ car['plateid'] }}" class="card" method="get">
-                          <div class="product-left">
-                                <div class="headerp">
-                                    <h1>{{ car['brand'] + " " + car['model'] }}</h1> <!--Brand and Model-->
-                                </div>
-                                <div class="product-main">
-                                    <div class="focus"> </div>
-                                </div>
-                                <div class="product-details">
-                                      <div class="product-total">
-                                          <h3>Plate: {{ car['plateid'] }}</h3>
-                                        <h3>Price/Day: {{ car['rate'] }}</h3>
-                                        <h3>Color: {{ car['color'] }}</h3>
-                                        <h3>{{ car['active'] }}</h3>
-                                        <h3>Location: {{ car['officeloc'] }}</h3>
-
-                                      </div>
-                                </div>
-                                        <div class="product-btns">
-                                          <button  type="submit" class="product-add"> Car Details </button>
-                                        </div>
-                          </div>
-                          <div class="product-right">
-                                <img src="{{ car['img'] }}" alt="Car here" >
-                          </div>
-                    </form>
-                </div>
-        {% endfor %}
+ <div  id="carbody">
+    {{ carBody }}
 </div>
 
 	<!-- ______________________________________________________Bottom Menu ______________________________-->
