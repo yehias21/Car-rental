@@ -1,5 +1,5 @@
 from flask import Flask, render_template, session, redirect, url_for, flash
-
+from auth import login_required
 
 def create_app():
     app = Flask(__name__)
@@ -18,6 +18,7 @@ def create_app():
             return redirect(url_for('home'))
         return render_template("index.html")
     @app.route("/redirect/<page>")
+    @login_required
     def routing(page):
         return render_template(f'{page}')
     @app.route('/logout')
