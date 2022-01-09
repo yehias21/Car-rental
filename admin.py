@@ -101,6 +101,7 @@ def view_car(plateid):
 @login_required(role='admin')
 def reservations():
     content = request.json
+    print(content)
     start = content['start_date']
     end = content['end_date']
     db.execute(sql.all_reservations, (start, end))
