@@ -19,7 +19,6 @@ def home():
     db.execute(sql.all_cars, (session['country'],))
     cars = db.fetchall()
     for car in cars:
-        #print(car['img'])
         car['img'] = bytestoimg((car['img']))
         print(car['img'])
     return render_template("Customer.html", cars=cars)
