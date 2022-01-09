@@ -19,18 +19,25 @@ def login_query(tablename=None):
 customer_register = "INSERT INTO customer (username, password, fname, lname, email, country, city, address) VALUES (" \
                     "%s,%s,%s,%s,%s,%s,%s,%s) "
 admin_register = "INSERT INTO admin (username, password) VALUES (%s,%s)"
-car_register = "INSERT INTO car (plateid,modelyr,brand,model,color,rate) VALUES (%s,%s,%s,%s,%s,%s)"
+car_register = "INSERT INTO car (plateid,modelyr,brand,model,color,rate,officeloc) VALUES (%s,%s,%s,%s,%s,%s,%s)"
 car_image_register = "INSERT INTO car_image (plateid, image) values (%s,%s)"
-car_search = "SELECT car.plateid, extract(year from car.modelyr) as year, brand, model, color, active, rate , " \
+car_search = "SELECT car.plateid, extract(year from car.modelyr) as year, brand, model, color, active, rate ," \
+             "officeloc, " \
              "encode(car_image.image,'hex') img " \
              "FROM car natural join car_image WHERE " \
-             "plateid = %s or modelyr = %s or brand = %s or model=%s or color=%s or active = %s or rate = %s"
+             "plateid = %s or modelyr = %s or brand = %s or model=%s or color=%s or active = %s or rate = %s or " \
+             "officeloc = %s "
 
 car_search_plate = "SELECT car.plateid, extract(year from car.modelyr) as year, brand, model, color, active, rate , " \
+                   "officeloc, " \
                    "encode(car_image.image,'hex') img " \
                    "FROM car natural join car_image WHERE plateid = %s "
 
-update_car = "UPDATE car SET (active,rate) = (%s,%s) WHERE plateid = %s"
+update_car_rate = "UPDATE car SET rate = %s WHERE plateid = %s"
+update_car_state = "UPDATE car SET active = %s::bool WHERE plateid = %s"
+car_out_service = "INSERT INTO status(plateid, out_start) values(%s,%s::date) "
+car_in_service = "UPDATE status SET out_end = %s WHERE plateid = %s AND out_end IS NULL"
+
 search_customer = "select * from customer where username = %s"
 
 # reports:

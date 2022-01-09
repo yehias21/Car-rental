@@ -3,7 +3,7 @@ import datetime
 import flask
 import psycopg2
 from flask import (Blueprint, flash, redirect, render_template, request, url_for, session, jsonify)
-# from auth import login_required
+from auth import login_required
 import carSQL as sql
 
 bp = Blueprint('admin', __name__, url_prefix='/admin')
@@ -12,7 +12,7 @@ db = sql.db
 
 
 @bp.route("/register_car", methods=["GET", "POST"])
-# @login_required
+@login_required
 def register_car():
     if request.method == 'POST':
         image = request.files['image'].read()
@@ -24,13 +24,15 @@ def register_car():
         model = content['model']
         color = content['color']
         rate = content['rate']
+        officeloc = str.lower(content['officeloc'])
         error = None
         try:
-            db.execute(sql.car_register, (plateID, year, brand, model, color, rate))
+            db.execute(sql.car_register, (plateID, year, brand, model, color, rate, officeloc))
             db.execute(sql.car_image_register, (plateID, image))
             conn.commit()
         except psycopg2.IntegrityError:
             error = f"Car {plateID} is already registered"
+            db.execute("ROLLBACK")
             flash(error)
         else:
             return redirect(url_for("admin"))
@@ -49,26 +51,40 @@ def search_car():
         color = content['color']
         active = content['active']
         rate = content['rate']
-        db.execute(sql.car_search, (plateID, year, brand, model, color, active, rate))
+        officeloc = str.lower(content['officeloc'])
+        db.execute(sql.car_search, (plateID, year, brand, model, color, active, rate, officeloc))
         cars = db.fetchall()
         # TODO: Render returned cars somehow
         # return render_template('admin/')
 
 
-@bp.route('/cars/<string:plateid>', methods=('GET', 'POST'))
+@bp.route('/car/<string:plateid>', methods=['GET', 'POST'])
 def view_car(plateid):
-    db.execute(sql.car_search_plate, (plateid))
-    car = db.fetchone()
+    db.execute(sql.car_search_plate, (plateid,))
+    car = db.fetchone
+    content = request.json
     if request.method == 'POST':
-        new_state = request.form['active']
-        new_rate = request.form['rate']
-        if new_state != car['active'] or car['rate'] != new_rate:
+        new_state = content['active']
+        new_rate = content['rate']
+        if new_rate != car['rate']:
             try:
-                db.execute(sql.update_car, (new_state, new_rate, plateid))
+                db.execute(sql.update_car_rate, (new_rate, plateid))
                 conn.commit()
             except psycopg2.IntegrityError:
-                return redirect(url_for('cars/' + plateid))
-    return render_template('admin/car', car=car)
+                db.execute("ROLLBACK")
+                # TODO THROW ERROR
+        try:
+            if (new_state, content['state']) == (False, True):
+                db.execute(sql.update_car_state, (new_state, plateid))
+                db.execute(sql.car_out_service, (plateid, str(datetime.date.today())))
+                conn.commit()
+            elif (new_state, content['state']) == (True, False):
+                db.execute(sql.update_car_state, (new_state, plateid))
+                db.execute(sql.car_in_service, (str(datetime.date.today()), plateid))
+                conn.commit()
+        except psycopg2.IntegrityError:
+            db.execute("ROLLBACK")
+            # TODO THROW ERROR
 
 
 @bp.route('/reports/reservations', methods=["POST"])

@@ -12,6 +12,7 @@ db = sql.db
 
 
 @bp.route('/customer_home', methods=["GET", "POST"])
+@login_required(role='customer')
 def home():
     return render_template("customer/customer_home.html")
 
