@@ -16,7 +16,7 @@ db = sql.db
 def home():
     return render_template("Customer.html")
 
-
+# todo:optimize search car
 @bp.route('/customer_search', methods=["GET", "POST"])
 @login_required(role='customer')
 def search_car():
@@ -27,7 +27,7 @@ def search_car():
         return render_template("cars.html", cars=cars)
     return render_template("customer/customer_search_car.html")
 
-
+#todo: reserve car optimization
 @bp.route('/customer_reserve', methods=["GET", "POST"])
 @login_required(role='customer')
 def reserve_car():
@@ -87,12 +87,12 @@ def reserve_car():
                 flash(error)
     return render_template("customer/reserve.html")
 
-
+# todo send the files reservations
 @bp.route("/reservations")
 @login_required(role='customer')
 def view_reservations():
     custid = session['id']
     db.execute(sql.customer_reservations, (custid,))
     reservations = db.fetchall()
-    return render_template("customer/reservations.html", reservations=reservations)
+    return render_template("Reservations.html")
 
