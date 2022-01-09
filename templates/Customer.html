@@ -61,7 +61,7 @@
 						<label style="color: #FFF" >To:</label>
 						<input type="date" class="form-control searchform" placeholder="Return Date">
 					</div>
-					<button class="searchbutton" type="submit" style="margin: 10px;"><span class="glyphicon glyphicon-search "></span></button>
+					<button class="searchbutton" type="submit" style="margin: 10px;"  name="submit_type" value="search"><span class="glyphicon glyphicon-search "></span></button>
 				</form>
 			</div>
 		</nav>
@@ -89,7 +89,7 @@
                                       </div>
                                 </div>
                                         <div class="product-btns">
-                                          <button type="submit" class="product-add"> RENT CAR </button>
+                                          <input type="hidden" name="carid" value="{{ car['plateid'] }}">
                                         </div>
                           </div>
                           <div class="product-right">

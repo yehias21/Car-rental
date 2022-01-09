@@ -20,7 +20,6 @@ def home():
     cars = db.fetchall()
     for car in cars:
         car['img'] = bytestoimg((car['img']))
-        print(car['img'])
     return render_template("Customer.html", cars=cars)
 
 # todo:optimize search car
