@@ -7,6 +7,8 @@
     <link rel="stylesheet" type="text/css" href="../static/source/bootstrap-3.3.6-dist/css/bootstrap.css">
     <link rel="stylesheet" type="text/css" href="../static/source/font-awesome-4.5.0/css/font-awesome.css">
     <link rel="stylesheet" type="text/css" href="../static/style/mystyle.css">
+    <script src="{{ url_for('static', filename='register.js') }}"></script>
+
 </head>
 
 <body>
@@ -39,60 +41,60 @@
             <div class="card-body p-5" style="max-width: 400px; margin: 50px 450px">
                                 <h2 class="text-uppercase text-center mb-5" style="font-family: bebas">Register</h2>
 
-                                <form onsubmit="return verifyPassword()" method="post">
+                                <form id="registerForm">
 
 
                                     <div class="form-outline mb-4">
-                                        <label class="form-label" for="form3Example1cg">First Name</label>
-                                        <input type="text" id="form3Example1cg" placeholder="Your first name here."
+                                        <label class="form-label" for="fname">First Name</label>
+                                        <input type="text" id="fname" placeholder="Your first name here."
                                             class="form-control form-control-lg" name="firstname" required>
                                     </div>
 
                                     <div class="form-outline mb-4">
-                                        <label class="form-label" for="form3Example1cg">Last Name</label>
-                                        <input type="text" id="form3Example1cg" placeholder="Your last name here."
+                                        <label class="form-label" for="lname">Last Name</label>
+                                        <input type="text" id="lname" placeholder="Your last name here."
                                             class="form-control form-control-lg" name="lastname" required>
                                     </div>
 
                                     <div class="form-outline mb-4">
-                                        <label class="form-label" for="form3Example1cg">Username</label>
-                                        <input type="text" id="form3Example1cg" placeholder="Your username here."
+                                        <label class="form-label" for="username">Username</label>
+                                        <input type="text" id="username" placeholder="Your username here."
                                             class="form-control form-control-lg" name="username" required>
                                     </div>
 
                                     <div class="form-outline mb-4">
-                                        <label class="form-label" for="form3Example3cg">Email</label>
-                                        <input type="email" id="form3Example3cg" placeholder="xxx@example.com"
+                                        <label class="form-label" for="email">Email</label>
+                                        <input type="email" id="email" placeholder="xxx@example.com"
                                             class="form-control form-control-lg" name="email" required>
                                     </div>
 
                                     <div class="form-outline mb-4">
-                                        <label class="form-label" for="form3Example4cg">Password</label>
-                                        <input type="password" id="form3Example4cg" placeholder="********"
+                                        <label class="form-label" for="pass">Password</label>
+                                        <input type="password" id="pass" placeholder="********"
                                             class="form-control form-control-lg" name="password" required>
                                     </div>
 
                                     <div class="form-outline mb-4">
-                                        <label class="form-label" for="form3Example4cdg">Confirm your password</label>
-                                        <input type="password" id="form3Example4cdg" placeholder="********"
+                                        <label class="form-label" for="confPass">Confirm your password</label>
+                                        <input type="password" id="confPass" placeholder="********"
                                             class="form-control form-control-lg" name="pass_chk" required>
                                     </div>
 
                                     <div class="form-outline mb-4">
-                                        <label class="form-label" for="form3Example1cg">Country</label>
-                                        <input type="text" id="form3Example1cg" placeholder="Egypt"
+                                        <label class="form-label" for="country">Country</label>
+                                        <input type="text" id="country" placeholder="Egypt"
                                             class="form-control form-control-lg" name="country" required>
                                     </div>
 
                                     <div class="form-outline mb-4">
-                                        <label class="form-label" for="form3Example1cg">City</label>
-                                        <input type="text" id="form3Example1cg" placeholder="Cairo"
+                                        <label class="form-label" for="city">City</label>
+                                        <input type="text" id="city" placeholder="Cairo"
                                             class="form-control form-control-lg" name="city" required>
                                     </div>
 
                                     <div class="form-outline mb-4">
-                                        <label class="form-label" for="form3Example1cg">Address</label>
-                                        <input type="text" id="form3Example1cg" placeholder="Your address here."
+                                        <label class="form-label" for="address">Address</label>
+                                        <input type="text" id="address" placeholder="Your address here."
                                             class="form-control form-control-lg" name="address" required>
                                     </div>
 
@@ -122,20 +124,6 @@
         <img src="../static/image/line.png" alt="line"> <br>
         <div class="footer"> </div>
     </div>
-    <script>
-        function verifyPassword() {
-            var pass = document.getElementById("form3Example4cg").value;
-            var confirm_pass = document.getElementById("form3Example4cdg").value;
-            var validation = pass.localeCompare(confirm_pass);
-            if (validation === 0) {
-                return true;
-            } else {
-                alert("Passwords Do Not Match");
-                return false;
-            }
-
-        }
-    </script>
 </body>
 
 </html>

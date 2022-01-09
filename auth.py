@@ -22,7 +22,6 @@ def login_required(view):
 def login():
     if request.method == 'POST':
         data=request.get_json()
-        print(data)
         username = data['username']
         password = data['password']
         role = data['role']
@@ -40,28 +39,29 @@ def login():
             session['id'] = user['id']
             return jsonify(ok=1)
         return jsonify(ok=0)
+    return render_template("auth/login.html")
 
 
 @bp.route("/register", methods=["GET", "POST"])
 def register():
     if request.method == 'POST':
-        fname = request.form.get("firstname")
-        lname = request.form.get("lastname")
-        username = request.form.get("username")
-        email = request.form.get("email")
-        password = request.form.get("password")
-        country = request.form.get("country")
-        city = request.form.get("city")
-        address = request.form.get("address")
+        data=request.get_json()
+        print(data)
+        fname = data["name"]
+        lname = data["lname"]
+        username = data["username"]
+        email = data["email"]
+        password = data["password"]
+        country = data["country"]
+        city = data["city"]
+        address = data["address"]
         password = generate_password_hash(password)
         try:
             db.execute(sql.customer_register, (username, password, fname, lname, email, country, city, address))
             conn.commit()
-            return redirect(url_for('auth.login'))
+            return jsonify(ok=1)
         except psycopg2.IntegrityError:
-            error = f"User {username} is already registered."
-            flash(error)
-
+            return jsonify(ok=0)
     return render_template("auth/register.html")
 
 
