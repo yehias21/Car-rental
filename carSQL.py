@@ -5,7 +5,7 @@ from flask import session
 DB_HOST = "localhost"
 DB_NAME = "carsystem"
 DB_USER = "postgres"
-DB_PASS = "postgres"
+DB_PASS = "1234"
 conn = psycopg2.connect(host=DB_HOST, dbname=DB_NAME, user=DB_USER, password=DB_PASS)
 db = conn.cursor(cursor_factory=psycopg2.extras.RealDictCursor)
 

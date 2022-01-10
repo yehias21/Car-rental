@@ -10,50 +10,27 @@
 <script src="/static/admin.js">
 </script>
 <body>
-<!-- Header -->
-<div class="allcontain">
-	<div class="header" style="padding: 2px">
-			<ul class="socialicon">
-				<li><a href="/home" class="logreg">CLASSICAR</a></li>
-			</ul>
-			<ul class="logreg">
-				<li><a href="/admin/Reports">Reports </a> </li>
-				<li><a href="/logout"><span class="register">Logout</span></a></li>
-			</ul>
-	</div>
-	<!-- Navbar Up -->
-	<nav class="topnavbar navbar-default topnav">
-		<div class="container">
-			<div class="navbar-header">
-				<button type="button" class="navbar-toggle collapsed toggle-costume" data-toggle="collapse" data-target="#upmenu" aria-expanded="false">
-					<span class="sr-only"> Toggle navigaion</span>
-					<span class="icon-bar"></span>
-					<span class="icon-bar"></span>
-					<span class="icon-bar"></span>
-				</button>
-				<!-- <a class="navbar-brand logo" href="#"><img src="image/logo1.png" alt="logo"></a> -->
-			</div>	 
-		</div>
-	</nav>
+
+<!----- HEADER ----->
+
+<div class="header">
+	<ul class="headerLeft">
+		<li><a href="/home" class="logreg">CLASSICAR</a></li>
+	</ul>
+	<ul class="headerRight">
+		<li><a href="/admin/Reports">Reports </a> </li>
+		<li><a href="/logout"><span class="vLine">Logout</span></a></li>
+	</ul>
 </div>
 <!--_______________________________________ Search__________________________________ -->
 <div class="allcontain">
 	<div id="carousel-up" class="carousel slide" data-ride="carousel">
 		<h2 align="center" style="font-family: bebas">Adminstration&nbsp;</h2>
 		<nav class="navbar navbar-default midle-nav">
-<div class="navbar-header">
-		  <button type="button" class="navbar-toggle collapsed textcostume" data-toggle="collapse" data-target="#navbarmidle" aria-expanded="false">
-						<h1>SEARCH TEXT</h1>
-					<span class="sr-only">Toggle navigation</span>
-					<span class="icon-bar"></span>
-					<span class="icon-bar"></span>
-					<span class="icon-bar"></span>
-				</button>
-			</div>
 <div class="collapse navbar-collapse" id="navbarmidle">
 		  <div class="searchtxt"> </div>
 				<form action="/admin/search_car" class="navbar-form navbar-left searchformmargin" method="post" oninput="setTimeout(live_search,1000)" >
-					<div class="form-group">
+					<div class="form-group col-lg-2">
 						<input type="text" class="form-control searchform" name="plateID" placeholder="Car Plate">
                         <input type="text" class="form-control searchform" name="brand" placeholder="Car Brand">
                         <input type="text" class="form-control searchform" name="model" placeholder="Car Model">
@@ -62,16 +39,15 @@
                         <input type="text" class="form-control searchform" name="active" placeholder="Car Status">
                         <input type="text" class="form-control searchform" name="rate" placeholder="Rate">
                         <input type="text" class="form-control searchform" name="officeloc" placeholder="Office Location">
-                        <button class="searchbutton" type="submit" style="margin: 10px;"><span class="glyphicon glyphicon-search "></span></button>
-                        <a href="/admin/register_car" class="buttonito">Add Car</a>
-						
+                       <br> <a href="/admin/register_car" class="buttonito">Add New Car</a>
+
 				  </div>
 				</form>
 			</div>
 		</nav>
 	</div>
 </div>
-<!-- ____________________Featured Section ______________________________--> 
+<!-- ____________________Featured Section ______________________________-->
  <div  id="carbody">
     	<div class="wrapper">
 	   {% for car in cars %}
@@ -87,11 +63,11 @@
                                 </div>
                                 <div class="product-details">
                                       <div class="product-total">
-                                          <h3>Plate: {{ car['plateid'] }}</h3>
-                                        <h3>Price/Day: {{ car['rate'] }}</h3>
-                                        <h3>Color: {{ car['color'] }}</h3>
-                                        <h3>{{ car['active'] }}</h3>
-                                        <h3>Location: {{ car['officeloc'] }}</h3>
+                                          <h4>Plate: {{ car['plateid'] }}</h4>
+                                        <h4>Price/Day: {{ car['rate'] }}</h4>
+                                        <h4>Color: {{ car['color'] }}</h4>
+                                        <h4>{{ car['active'] }}</h4>
+                                        <h4>Location: {{ car['officeloc'] }}</h4>
 
                                       </div>
                                 </div>
@@ -110,7 +86,7 @@
 
 	<!-- ______________________________________________________Bottom Menu ______________________________-->
 	<div class="bottommenu">
-		
+
 		<p>"<em style="color:#C59E47 ">Quality</em> never goes out of style" <br>
 			</p>
 		 <img src="../static/image/line.png" alt="line"> <br>

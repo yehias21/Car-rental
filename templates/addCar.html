@@ -11,33 +11,24 @@
 </head>
 
 <body>
-    <!-- Header -->
-    <div class="allcontain">
-        <div class="header" style="padding: 2px">
-            <ul class="socialicon">
-                <li><a href="/home" class="logreg">CLASSICAR</a></li>
-            </ul>
+<!----- HEADER ----->
 
-        </div>
-        <!-- Navbar Up -->
-        <nav class="topnavbar navbar-default topnav">
-            <div class="container">
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle collapsed toggle-costume" data-toggle="collapse"
-                        data-target="#upmenu" aria-expanded="false">
-                        <span class="sr-only"> Toggle navigaion</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                    <!-- <a class="navbar-brand logo" href="#"><img src="image/logo1.png" alt="logo"></a> -->
-                </div>
-            </div>
-        </nav>
-    </div>
+<div class="header">
+    <ul class="headerLeft">
+        <li><a href="#" class="logreg">CLASSICAR</a></li>
+    </ul>
+    <ul class="headerRight">
+        <li><a href="/admin/admin_home">Manage Cars </a> </li>
+        <li><a href="/logout"><span class="vLine">Logout</span></a></li>
+    </ul>
+</div>
+
+<div style="background-color: rgba(248,199,45,1)">
+    <br>
+</div>
     <!--_______________________________________ Search__________________________________ -->
         <div class="mask d-flex align-items-center h-100">
-            <div class="card-body p-5" style="max-width: 400px; margin: 50px 450px">
+            <div class="card-body p-5" >
                                 <h2 class="text-uppercase text-center mb-5" style="font-family: bebas">Register</h2>
 
                                 <form action="/admin/register_car" id="registerForm" enctype="multipart/form-data" method="post">
@@ -90,7 +81,7 @@
                                         <input type="file" id="form3Example4cdg"  class="form-control form-control-lg" name="image" required>
                                     </div>
                             <div class="d-flex justify-content-center">
-                                        <button type="submit" class="btn btn-success btn-block btn-lg gradient-custom-4 text-body" name="register">Register</button>
+                                        <button type="submit" class="btn btn-success btn-block btn-lg gradient-custom-4 text-body" style="background-color: #F8C72D" name="register">Register</button>
                                     </div>
 
                                 </form>

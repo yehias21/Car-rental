@@ -1,4 +1,31 @@
-	<div class="wrapper">
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Car Rental</title>
+    <link rel="stylesheet" type="text/css" href="../static/source/bootstrap-3.3.6-dist/css/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="../static/source/font-awesome-4.5.0/css/font-awesome.css">
+    <link rel="stylesheet" type="text/css" href="../static/style/mystyle.css">
+</head>
+<body>
+
+<!----- HEADER ----->
+
+<div class="header">
+    <ul class="headerLeft">
+        <li><a href="/home" class="logreg">CLASSICAR</a></li>
+    </ul>
+    <ul class="headerRight">
+        <li><a href="/customer/customer_home">Search</a> </li>
+        <li><a href="/logout"><span class="vLine">Logout</span></a></li>
+    </ul>
+</div>
+
+<div style="background-color: rgba(248,199,45,1)">
+    <br>
+</div>
+
+<div class="wrapper">
 	   {% for car in cars %}
 
                 <div class="card">
@@ -12,11 +39,11 @@
                                 </div>
                                 <div class="product-details">
                                       <div class="product-total">
-                                          <h3>Plate: {{ car['plateid'] }}</h3>
-                                        <h3>Price/Day: {{ car['rate'] }}</h3>
-                                        <h3>Color: {{ car['color'] }}</h3>
-                                        <h3>{{ car['active'] }}</h3>
-                                        <h3>Location: {{ car['officeloc'] }}</h3>
+                                          <h4>Plate: {{ car['plateid'] }}</h4>
+                                        <h4>Price/Day: {{ car['rate'] }}</h4>
+                                        <h4>Color: {{ car['color'] }}</h4>
+                                        <h4>{{ car['active'] }}</h4>
+                                        <h4>Location: {{ car['officeloc'] }}</h4>
 
                                       </div>
                                 </div>
@@ -31,3 +58,14 @@
                 </div>
         {% endfor %}
 </div>
+
+<!-- ______________________________________________________Bottom Menu ______________________________-->
+<div class="bottommenu">
+
+    <p>"<em style="color:#C59E47 ">Quality</em> never goes out of style" <br>
+    </p>
+    <img src="../static/image/line.png" alt="line"> <br>
+    <div class="footer"></div>
+</div>
+</body>
+</html>

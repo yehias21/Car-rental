@@ -3,25 +3,28 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Search Cars</title>
-	<link rel="stylesheet" type="text/css" href="../static/source/bootstrap-3.3.6-dist/css/bootstrap.css">
-	<link rel="stylesheet" type="text/css" href="../static/source/font-awesome-4.5.0/css/font-awesome.css">
-	<link rel="stylesheet" type="text/css" href="../static/style/mystyle.css">
+	<link rel="stylesheet" type="text/css" href="/static/source/bootstrap-3.3.6-dist/css/bootstrap.css">
+	<link rel="stylesheet" type="text/css" href="/static/source/font-awesome-4.5.0/css/font-awesome.css">
+	<link rel="stylesheet" type="text/css" href="/static/style/mystyle.css">
 </head>
 <body>
-<!-- Header -->
-<div class="allcontain">
-	<div class="header" style="padding: 2px">
-			<ul class="socialicon">
-				<li><a href="/customer/customer_home" class="logreg">CLASSICAR</a></li>
-			</ul>
-			<ul class="logreg">
-				<li><a href="/customer/reservations">My Reservations </a> </li>
-				<li><a href="/logout"><span class="register">Logout</span></a></li>
-			</ul>
-	</div>
+
+<!----- HEADER ----->
+
+<div class="header">
+    <ul class="headerLeft">
+        <li><a href="/home" class="logreg">CLASSICAR</a></li>
+    </ul>
+    <ul class="headerRight">
+        <li><a href="/customer/reservations">My Reservations</a> </li>
+        <li><a href="/logout"><span class="vLine">Logout</span></a></li>
+    </ul>
 </div>
 <div id="carousel-up" class="carousel slide" data-ride="carousel">
 		<h2 align="center" style="font-family: bebas">My {{ period }} Reservations</h2>
+</div>
+<div style="background-color: rgba(248,199,45,1)">
+    <br>
 </div>
 <!-- ____________________Featured Section ______________________________-->
 
@@ -32,7 +35,7 @@
                     <form class="card" method="post">
                           <div class="product-left">
                                 <div class="headerp">
-                                    <h1>Reservation ID: {{ res['rid'] }}</h1>
+                                    <h3 style="font-family: Bebas;color: rgba(191,191,191,0.56)">Reservation ID: {{ res['rid'] }}</h3>
                                     <h1>Car Plate ID : {{ res['carid'] }}</h1>
                                 </div>
                                 <div class="product-main">
@@ -40,14 +43,14 @@
                                 </div>
                                 <div class="product-details">
                                       <div class="product-total">
-                                        <h3>Reservation Date: {{ res['reserve_date'] }}</h3>
-                                        <h3>Pick Up Date: {{ res['pickup_date'] }}</h3>
-                                        <h3>Return Date: {{ res['return_date'] }}</h3>
-                                        <h3>Total Fare: {{ res['bill'] }}</h3>
+                                        <h5>Reservation Date: {{ res['reserve_date'] }}</h5>
+                                        <h5>Pick Up Date: {{ res['pickup_date'] }}</h5>
+                                        <h5>Return Date:{{ res['return_date'] }}</h5>
+                                        <h5>Total Fare: {{ res['bill'] }}</h5>
                                         {% if res['paid'] %}
-                                            <h3>Reservation Status: Paid</h3>
+                                            <h5>Reservation Status: Paid</h5>
                                         {% else %}
-                                            <h3>Reservation Status: Un Paid</h3>
+                                            <h5>Reservation Status: Un Paid</h5>
                                         {% endif %}
                                       </div>
                                 </div>

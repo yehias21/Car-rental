@@ -9,33 +9,24 @@
     <script src="{{ url_for('static', filename='login.js') }}"></script>
 </head>
 <body>
-<!-- Header -->
-<div class="allcontain">
-    <div class="header" style="padding: 2px">
-        <ul class="socialicon">
-            <li><a href="/home" class="logreg">CLASSICAR</a></li>
-        </ul>
-    </div>
-    <!-- Navbar Up -->
-    <nav class="topnavbar navbar-default topnav">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle collapsed toggle-costume" data-toggle="collapse"
-                        data-target="#upmenu" aria-expanded="false">
-                    <span class="sr-only"> Toggle navigaion</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <!-- <a class="navbar-brand logo" href="#"><img src="image/logo1.png" alt="logo"></a> -->
-            </div>
-        </div>
-    </nav>
+<!----- HEADER ----->
+
+<div class="header">
+    <ul class="headerLeft">
+        <li><a href="/home" class="logreg">CLASSICAR</a></li>
+    </ul>
+    <ul class="headerRight">
+        <li><a href="/auth/register"><span class="vLine">Register</span></a></li>
+    </ul>
+</div>
+
+<div style="background-color: rgba(248,199,45,1)">
+    <br>
 </div>
 <!--_______________________________________ Search__________________________________ -->
 
 <div class="align-items-center">
-    <div class="card-body p-5" style="max-width: 400px; margin: 50px 450px">
+    <div class="card-body p-5" >
         <h2 class="text-uppercase text-center mb-5" style="font-family: bebas">Login</h2>
 
         <form id="loginForm">
@@ -64,7 +55,7 @@
             </div>
 
             <p class="text-center text-muted mt-5 mb-0">Do not have an account? <a href="/auth/register"
-                                                                                   class="fw-bold text-body"><u>Register
+                                                                                   class="fw-bold text-body"><u style="color: rgba(248,199,45,1)">Register
                 here</u></a></p>
 
         </form>

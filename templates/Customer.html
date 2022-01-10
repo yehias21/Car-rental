@@ -8,60 +8,39 @@
 	<link rel="stylesheet" type="text/css" href="../static/style/mystyle.css">
 </head>
 <body>
-<!-- Header -->
-<div class="allcontain">
-	<div class="header" style="padding: 2px">
-			<ul class="socialicon">
-				<li><a href="/customer/customer_home" class="logreg">CLASSICAR</a></li>
-			</ul>
-			<ul class="logreg">
-				<li><a href="/customer/reservations">My Reservations </a> </li>
-				<li><a href="/logout"><span class="register">Logout</span></a></li>
-			</ul>
-	</div>
-	<!-- Navbar Up -->
-	<nav class="topnavbar navbar-default topnav">
-		<div class="container">
-			<div class="navbar-header">
-				<button type="button" class="navbar-toggle collapsed toggle-costume" data-toggle="collapse" data-target="#upmenu" aria-expanded="false">
-					<span class="sr-only"> Toggle navigaion</span>
-					<span class="icon-bar"></span>
-					<span class="icon-bar"></span>
-					<span class="icon-bar"></span>
-				</button>
-				<!-- <a class="navbar-brand logo" href="#"><img src="image/logo1.png" alt="logo"></a> -->
-			</div>	 
-		</div>
-	</nav>
+
+<!----- HEADER ----->
+
+<div class="header">
+	<ul class="headerLeft">
+		<li><a href="/home" class="logreg">CLASSICAR</a></li>
+	</ul>
+	<ul class="headerRight">
+		<li><a href="/customer/reservations">My Reservations</a> </li>
+		<li><a href="/logout"><span class="vLine">Logout</span></a></li>
+	</ul>
 </div>
 <!--_______________________________________ Search__________________________________ -->
 <div class="allcontain">
 	<div id="carousel-up" class="carousel slide" data-ride="carousel">
 		<nav class="navbar navbar-default midle-nav">
-			<div class="navbar-header">
-				<button type="button" class="navbar-toggle collapsed textcostume" data-toggle="collapse" data-target="#navbarmidle" aria-expanded="false">
-						<h1>SEARCH CARS</h1>
-					<span class="sr-only">Toggle navigation</span>
-					<span class="icon-bar"></span>
-					<span class="icon-bar"></span>
-					<span class="icon-bar"></span>
-				</button>
-			</div>
 			<div class="collapse navbar-collapse" id="navbarmidle">
 				<div class="searchtxt">
 					<h1 style="color: black">SEARCH CARS</h1>
 				</div>
-				<form class="navbar-form navbar-left searchformmargin" onSubmit="return searchCars(Brand,Model)" method="post">
-					<div class="form-group">
+				<form class="navbar-form searchformmargin" onSubmit="return searchCars(Brand,Model)" method="post">
+					<div class="form-group col-lg-2">
 						<input type="text" class="form-control searchform" name="brand" placeholder="Brand">
 						<input type="text" class="form-control searchform" name="model" placeholder="Model">
 						<input type="text" class="form-control searchform" name="color" placeholder="Color">
-						<label style="color: #FFF" >From:</label>
+						<br>
+						<label class="frto" >From:</label>
 						<input type="date" class="form-control searchform" name="start_date" placeholder="Pickup Date">
-						<label style="color: #FFF" >To:</label>
+						<label class="frto" >To:</label>
 						<input type="date" class="form-control searchform" name="end_date" placeholder="Return Date">
+						<br>
+						<button class="searchbutton" type="submit" style="margin: 10px;"  name="submit_type" value="search"><span class="glyphicon glyphicon-search "></span></button>
 					</div>
-					<button class="searchbutton" type="submit" style="margin: 10px;"  name="submit_type" value="search"><span class="glyphicon glyphicon-search "></span></button>
 				</form>
 			</div>
 		</nav>

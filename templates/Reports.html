@@ -10,41 +10,38 @@
 
 </head>
 <body>
-<!-- Header -->
-<div class="allcontain">
-	<div class="header" style="padding: 2px">
-			<ul class="socialicon">
-				<li><a href="/home" class="logreg">CLASSICAR</a></li>
-			</ul>
-			<ul class="logreg">
-				<li><a href="/home">Manage Cars </a> </li>
-				<li><a href="/logout"><span class="register">Logout</span></a></li>
-			</ul>
-	</div>
-	<!-- Navbar Up -->
+<!----- HEADER ----->
 
+<div class="header">
+    <ul class="headerLeft">
+        <li><a href="#" class="logreg">CLASSICAR</a></li>
+    </ul>
+    <ul class="headerRight">
+        <li><a href="/admin/admin_home">Manage Cars </a> </li>
+        <li><a href="/logout"><span class="vLine">Logout</span></a></li>
+    </ul>
 </div>
 <!--_______________________________________ Search__________________________________ -->
 <<div class="allcontain">
-	<div id="carousel-up" class="carousel slide" data-ride="carousel">
+	<div class="carousel slide" data-ride="carousel">
 		<h2 align="center" style="font-family: bebas">Reports</h2>
 		<nav class="navbar navbar-default midle-nav">
-<div class="collapse navbar-collapse" style="padding: 20px ;"  id="navbarmidle">
-	<a onclick="showform(1)" class="product-add" style="border-radius: 2px; color: white ; font-family: bebas; font-size: 25px; padding: 5px 15px; margin: 20px">All Reservations</a>
-	<a onclick="showform(2)" class="product-add" style="border-radius: 2px; color: white ; font-family: bebas; font-size: 25px; padding: 5px 15px;margin: 20px">Car Reservations</a>
-	<a onclick="showform(3)" class="product-add" style="border-radius: 2px; color: white ; font-family: bebas; font-size: 25px; padding: 5px 15px;margin: 20px">Customer Reservations</a>
-    <a onclick="showform(4)" class="product-add" style="border-radius: 2px; color: white ; font-family: bebas; font-size: 25px; padding: 5px 15px; margin: 20px">Payments</a>
-	<a onclick="showform(5)" class="product-add" style="border-radius: 2px; color: white ; font-family: bebas; font-size: 25px; padding: 5px 15px;margin: 20px">Status</a>
-	<a onclick="showform(6)" class="product-add" style="border-radius: 2px; color: white ; font-family: bebas; font-size: 25px; padding: 5px 15px;margin: 20px">Car availability</a>
+<div class="collapse navbar-collapse" style="padding: 10px ; margin:5px 0;"  id="navbarmidle">
+	<a onclick="showform(1)" class="buttonito" >All Reservations</a>
+	<a onclick="showform(2)" class="buttonito" >Car Reservations</a>
+	<a onclick="showform(3)" class="buttonito" >Customer Reservations</a>
+    <a onclick="showform(4)" class="buttonito" >Payments</a>
+	<a onclick="showform(5)" class="buttonito" >Status</a>
+	<a onclick="showform(6)" class="buttonito" >Car availability</a>
 		  </div>
 	  </nav>
   </div>
 </div>
-<!-- ____________________Featured Section ______________________________--> 
+<!-- ____________________Forms ______________________________-->
 
 
-<div class="align-items-center">
-    <div class="card-body p-5" style="max-width: 400px; margin: 50px 450px">
+<div class="align-items-center" >
+    <div class="card-body">
      <form id="allReservForm">
          <h2 class="text-uppercase text-center mb-5" style="font-family: bebas">All reservations</h2>
             <div class="form-outline mb-4">

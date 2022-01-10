@@ -8,50 +8,27 @@
 	<link rel="stylesheet" type="text/css" href="../static/style/mystyle.css">
 </head>
 <body>
-<!-- Header -->
-<div class="allcontain">
-	<div class="header" style="padding: 2px">
-			<ul class="socialicon">
-				<li><a href="/home" class="logreg">CLASSICAR</a></li>
-			</ul>
-			<ul class="logreg">
-				<li><a href="/customer/customer_home">Search&nbsp; </a> </li>
-				<li><a href="/logout"><span class="register">Logout</span></a></li>
-			</ul>
-	</div>
-	<!-- Navbar Up -->
-	<nav class="topnavbar navbar-default topnav">
-		<div class="container">
-			<div class="navbar-header">
-				<button type="button" class="navbar-toggle collapsed toggle-costume" data-toggle="collapse" data-target="#upmenu" aria-expanded="false">
-					<span class="sr-only"> Toggle navigaion</span>
-					<span class="icon-bar"></span>
-					<span class="icon-bar"></span>
-					<span class="icon-bar"></span>
-				</button>
-				<!-- <a class="navbar-brand logo" href="#"><img src="image/logo1.png" alt="logo"></a> -->
-			</div>	 
-		</div>
-	</nav>
+
+<!----- HEADER ----->
+
+<div class="header">
+	<ul class="headerLeft">
+		<li><a href="/home" class="logreg">CLASSICAR</a></li>
+	</ul>
+	<ul class="headerRight">
+		<li><a href="/customer/customer_home">Search</a> </li>
+		<li><a href="/logout"><span class="vLine">Logout</span></a></li>
+	</ul>
 </div>
-<!--_______________________________________ Search__________________________________ -->
+<!--_______________________________________ reservations__________________________________ -->
 <div class="allcontain">
 	<div id="carousel-up" class="carousel slide" data-ride="carousel">
 		<h2 align="center" style="font-family: bebas">My Reservations</h2>
 		<nav class="navbar navbar-default midle-nav">
-<div class="navbar-header">
-		  <button type="button" class="navbar-toggle collapsed textcostume" data-toggle="collapse" data-target="#navbarmidle" aria-expanded="false">
-						<h1></h1>
-					<span class="sr-only">Toggle navigation</span>
-					<span class="icon-bar"></span>
-					<span class="icon-bar"></span>
-					<span class="icon-bar"></span>
-		</button>
-		  </div>
-<div class="collapse navbar-collapse" style="padding: 20px ;"  id="navbarmidle">
-	<a href="/customer/reservations/past" class="product-add" style="border-radius: 2px; color: white ; font-family: bebas; font-size: 25px; padding: 5px 15px; margin: 20px">Past Reservations</a>
-	<a href="/customer/reservations/current" class="product-add" style="border-radius: 2px; color: white ; font-family: bebas; font-size: 25px; padding: 5px 15px;margin: 20px">Current Reservations</a>
-	<a href="/customer/reservations/pending" class="product-add" style="border-radius: 2px; color: white ; font-family: bebas; font-size: 25px; padding: 5px 15px;margin: 20px">Pending Reservations</a>
+<div class="collapse navbar-collapse" style="padding: 20px ;text-align: center;"  id="navbarmidle">
+	<a href="/customer/reservations/past" class="buttonito">Past Reservations</a>
+	<a href="/customer/reservations/current" class="buttonito" >Current Reservations</a>
+	<a href="/customer/reservations/pending" class="buttonito" >Pending Reservations</a>
 		  </div>
 	  </nav>
   </div>
@@ -60,7 +37,7 @@
 
 	<div class="wrapper"> </div>
 
-	<!-- ______________________________________________________Bottom Menu ______________________________-->
+<!-- ______________________________________________________Bottom Menu ______________________________-->
 	<div class="bottommenu">
 		
 		<p>"<em style="color:#C59E47 ">Quality</em> never goes out of style" <br>

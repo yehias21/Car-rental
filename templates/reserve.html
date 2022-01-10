@@ -1,11 +1,31 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Car Rental</title>
+    <link rel="stylesheet" type="text/css" href="../static/source/bootstrap-3.3.6-dist/css/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="../static/source/font-awesome-4.5.0/css/font-awesome.css">
+    <link rel="stylesheet" type="text/css" href="../static/style/mystyle.css">
+</head>
+<body>
 
-    <div class="mask d-flex align-items-center h-100">
-            <div class="container h-100">
-                <div class="row d-flex justify-content-center align-items-center h-100">
-                    <div class="col-12 col-md-9 col-lg-7 col-xl-6">
-                        <div class="card" style="border-radius: 15px; background-color: rgba(255,255,255,0.85);">
+<!----- HEADER ----->
+
+<div class="header">
+    <ul class="headerLeft">
+        <li><a href="/home" class="logreg">CLASSICAR</a></li>
+    </ul>
+    <ul class="headerRight">
+        <li><a href="/customer/customer_home">Search</a> </li>
+        <li><a href="/logout"><span class="vLine">Logout</span></a></li>
+    </ul>
+</div>
+
+<div style="background-color: rgba(248,199,45,1)">
+    <br>
+</div>
                             <div class="card-body p-5">
-                                <h2 class="text-uppercase text-center mb-5">Reserve A Car</h2>
+                                <h2 style="font-family: Bebas" class="text-uppercase text-center mb-5">Reserve A Car</h2>
 
                                 <form method="post">
 
@@ -24,20 +44,15 @@
                                     </div>
 
                                     <div class="d-flex justify-content-center">
-                                        <button type="submit" class="btn btn-success btn-block btn-lg gradient-custom-4 text-body" name="reserve" value="with_pay">Reserve & Pay</button>
+                                        <button type="submit" class="btn btn-success btn-block btn-lg gradient-custom-4 text-body" name="reserve" value="with_pay" style="background-color: rgba(248,199,45,1)">Reserve & Pay</button>
                                     </div>
                                     <div class="d-flex justify-content-center">
-                                        <button type="submit" class="btn btn-success btn-block btn-lg gradient-custom-4 text-body" name="reserve" value="no_pay">Reserve Without Paying</button>
+                                        <button type="submit" class="btn btn-success btn-block btn-lg gradient-custom-4 text-body" name="reserve" value="no_pay" style="background-color: rgba(248,199,45,1)" >Reserve Without Paying</button>
                                     </div>
 
-                                    <p class="text-center text-muted mt-5 mb-0">Not Sure Which Car? <a href="/customer/customer_home" class="fw-bold text-body"><u>Find All Cars</u></a></p>
+                                    <p class="text-center text-muted mt-5 mb-0">Not Sure Which Car? <a href="/customer/customer_home" class="fw-bold text-body"><u style="color: rgba(248,199,45,1)">Find All Cars</u></a></p>
 
                                 </form>
 
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
         </div>
 
